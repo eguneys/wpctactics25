@@ -1,7 +1,7 @@
 import { createMemo, lazy } from 'solid-js'
 import { MetaProvider } from '@solidjs/meta'
 import './App.scss'
-import { A, Route, Router, useLocation } from '@solidjs/router'
+import { A, Route, HashRouter, useLocation } from '@solidjs/router'
 
 const Home = lazy(() => import('./Home'))
 
@@ -9,9 +9,9 @@ function App() {
   return (
     <>
         <MetaProvider>
-        <Router root={AppInRouter}>
+        <HashRouter root={AppInRouter}>
           <Route path='/' component={Home} />
-        </Router>
+        </HashRouter>
       </MetaProvider>
     </>
   )
