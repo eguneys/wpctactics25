@@ -1,0 +1,52 @@
+@import '_variables';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url(./assets/fonts/Lato-Regular.ttf)
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(./assets/fonts/Roboto-Regular.ttf)
+}
+
+html, body {
+    font-family: 'Lato';
+    color: $text;
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Roboto';
+}
+
+h1 {
+    font-size: 2.986em;
+}
+
+h2 {
+    font-size: 2.488em;
+}
+
+h3 {
+    font-size: 2.074em;
+}
+
+h4 {
+    font-size: 1.723em;
+}
+
+
+body {
+    background: linear-gradient($secondary, $success);
+}
