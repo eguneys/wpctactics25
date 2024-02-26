@@ -1,5 +1,4 @@
 import './Shalala.css'
-import Chessboard from './Chessboard'
 import { Signal, batch, createMemo, createSignal } from 'solid-js'
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen'
 import { Chess, Color, Position, parseSquare, parseUci, } from 'chessops'

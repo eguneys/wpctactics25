@@ -1,4 +1,4 @@
-import { createMemo, createResource, createSignal, on } from 'solid-js'
+import { Show, createMemo, createResource, createSignal, on } from 'solid-js'
 import Chessboard from './Chessboard'
 import Chesstree2, { Treelala2 } from './Chesstree2'
 import './Home.scss'
@@ -10,14 +10,15 @@ import { useParams } from '@solidjs/router'
 const Home = () => {
 
     const params = useParams()
-    let id = params.id
+    let _id = params.id
+    console.log(_id)
 
     const [pgn] = createResource('u1600', StudyRepo.read_study)
 
     return (<>
 
 <Show when={pgn.loading} fallback={
-    <HomeLoaded pgn={pgn()}/>
+    <HomeLoaded pgn={pgn()!}/>
 }>
     <span>Loading...</span>
 </Show>
@@ -29,6 +30,7 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
     const [i_chapter_index, set_i_chapter_index] = createSignal(0)
     const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index()])
 
+    set_i_chapter_index(0)
     const shalala = new Shala()
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
         let res = Treelala2.make(chapter.pgn.tree)
