@@ -1,7 +1,7 @@
-import { lazy } from 'solid-js'
+import { createMemo, lazy } from 'solid-js'
 import { MetaProvider } from '@solidjs/meta'
 import './App.scss'
-import { A, Route, Router } from '@solidjs/router'
+import { A, Route, Router, useLocation } from '@solidjs/router'
 
 const Home = lazy(() => import('./Home'))
 
@@ -19,6 +19,15 @@ function App() {
 
 function AppInRouter(props: any) {
 
+  let location = useLocation()
+  let pathname = createMemo(() => location.pathname.split('/')[1])
+
+  const path_klass = () => {
+    let p = pathname()
+    return `on-${p||'home'}`
+  }
+
+
   return (<>
     <div class='root'>
       <header>
@@ -28,7 +37,7 @@ function AppInRouter(props: any) {
         <nav id='topnav'>
         </nav>
       </header>
-      <div class='main-wrap'>
+      <div class={'main-wrap ' + path_klass()}>
 
         <div class='main'>
           {props.children}

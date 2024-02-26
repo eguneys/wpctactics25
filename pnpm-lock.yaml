@@ -11,6 +11,12 @@ dependencies:
   '@solidjs/router':
     specifier: ^0.12.4
     version: 0.12.4(solid-js@1.8.15)
+  chessground:
+    specifier: ^9.0.4
+    version: 9.0.4
+  chessops:
+    specifier: ^0.14.0
+    version: 0.14.0
   solid-js:
     specifier: ^1.8.15
     version: 1.8.15
@@ -251,6 +257,10 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
     dev: true
+
+  /@badrap/result@0.2.13:
+    resolution: {integrity: sha512-Qvyzz0dmGY0h8pwvBFo1BznAKf5Y5NXIDiqhPALWtfU7oHbAToCtPu4FlYQ3uysskSWLx8GUiyhe0nv0nDd/7Q==}
+    dev: false
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -714,6 +724,16 @@ packages:
       escape-string-regexp: 1.0.5
       supports-color: 5.5.0
     dev: true
+
+  /chessground@9.0.4:
+    resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
+    dev: false
+
+  /chessops@0.14.0:
+    resolution: {integrity: sha512-vg+jHoLJ1RPPVos/Uu44Z0jnVrzi7tkVtu5xwdIVjQ+QKw34it3gKUcW3l/artZlV7L8v4zLD98DJUXKGiUyzA==}
+    dependencies:
+      '@badrap/result': 0.2.13
+    dev: false
 
   /chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}

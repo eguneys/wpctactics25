@@ -1,0 +1,107 @@
+.chesstree-wrap {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.chesstree {
+    user-select: none;
+    cursor: pointer;
+    white-space: normal;
+    padding: 0.5em 0.7em;
+   font-family: "Noto Chess", "Lato"; 
+}
+
+.chesstree .move {
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.1em;
+    line-height: 1.2em;
+}
+
+.chesstree .move.collapsed {
+    opacity: 0.7;
+}
+
+.chesstree .line span.collapsed {
+    color:hsla(0, 60%, 70%, 0.8);
+    font-size: 0.8em;
+}
+
+.chesstree .move.on_path,
+.chesstree .move.on_path_end  {
+    box-shadow: 0 2px 0 0 orange;
+}
+
+.chesstree .move.on_path_end {
+    background: hsla(30, 50%, 70%, 1);
+}
+
+.chesstree .move.on_failed_path,
+.chesstree .move.on_failed_path_start {
+    font-weight: bold;
+    color: hsla(0, 70%, 30%, 1);
+    background: hsla(0, 60%, 70%, 0.8);
+}
+
+.chesstree .move.on_revealed_path,
+.chesstree .move.on_revealed_path_start {
+    color: hsla(59, 70%, 20%, 0.8);
+    background: hsla(59, 70%, 75%, 1);
+}
+
+
+
+.chesstree .move.on_solved_path,
+.chesstree .move.on_solved_path_start {
+    color: hsla(130, 40%, 30%, 1);
+    background: hsla(130, 30%, 70%, 0.8);
+}
+
+
+.chesstree .move.on_hidden_path,
+.chesstree .move.on_hidden_path_start {
+    color: transparent;
+    background: hsla(30, 50%, 30%, 1);
+}
+
+.chesstree .move:hover {
+    background: hsla(30, 50%, 70%, 0.8);
+    box-shadow: none;
+}
+
+.chesstree .move > .index {
+    padding-right: 0.2em;
+}
+
+
+.chesstree .lines {
+    padding-left: 0.5em;
+}
+
+.chesstree .lines:before {
+    content: ' ';
+    border-top: 2px solid #4a4a4a;
+    position: absolute;
+    margin-left: -9px;
+    width: 9px;
+    height: 6px;
+}
+
+.chesstree .lines .line {
+    border-left: 2px solid #4a4a4a;
+    padding-left: 8px;
+}
+
+.chesstree .lines .line:before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    margin-top: 0.65em;
+    margin-left: -8px;
+    content: "";
+    border-top: 2px solid #4a4a4a;
+}
+
+.chesstree .lines .line:first-child {
+    padding-top: 0.2em;
+}

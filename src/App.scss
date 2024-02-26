@@ -15,4 +15,18 @@ header {
             color: $text;
         }
     }
+
+}
+
+.main-wrap {
+
+    display: grid;
+    grid-template-areas: '. . .'
+    '. main .'
+    '. . .';
+
+    .main {
+        grid-area: main;
+      padding: 1em;
+    }
 }
