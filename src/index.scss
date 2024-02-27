@@ -15,6 +15,34 @@
     src: url(./assets/fonts/Roboto-Regular.ttf)
 }
 
+@font-face {
+    font-family: 'lichess';
+    font-display: block;
+    src: url(./assets/fonts/lichess.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Noto Chess';
+    font-display: block;
+    src: url(./assets/fonts/lichess.chess.woff) format('woff');
+}
+
+[data-icon]::before {
+    font-size: 1.2em;
+    vertical-align: middle;
+    font-family: 'lichess';
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    content: attr(data-icon);
+    opacity: 0.9;
+}
+
+
+button {
+    font-size: 1em;
+}
+
 html {
     box-sizing: border-box;
     min-height: 100%;

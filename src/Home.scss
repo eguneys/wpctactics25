@@ -126,8 +126,27 @@
             border-bottom: 1px solid $text;
         }
 
+        .replay-jump {
+            display: flex;
+            flex-flow: row;
+            align-items: stretch;
+            font-size: 1.2rem;
+
+            .fbt {
+                flex: 1 1 30%;
+                border-radius: 0 0 3px 3px;
+
+                &:last-child,
+                &:first-child {
+                    font-size: .7em;
+                    flex: 1 1 20%;
+                }
+            }
+
+        }
+
         .replay-tools {
-            flex: 1 0 4rem;
+            flex: 1 0 8rem;
             display: flex;
             flex-flow: column;
             justify-content: space-around;
@@ -137,6 +156,10 @@
                 display: flex;
                 flex-flow: column;
                 text-align: left;
+
+                .turn {
+                    text-transform: capitalize;
+                }
             }
 
             .solution {
@@ -144,6 +167,12 @@
                 cursor: pointer;
                 border-radius: 2px;
                 padding: 1em;
+                opacity: 1;
+
+                transition: opacity 1s;
+                &.fade-out {
+                    opacity: 0;
+                }
             }
             .solution:hover {
                 color: black;
@@ -153,7 +182,39 @@
             .solution:active {
                 text-decoration: underline;
             }
+
+            .link {
+
+                cursor: pointer;
+                user-select: none;
+
+              &:hover {
+                  color: $accent;
+              }
+            }
         }
+    }
+}
+
+.side .side-tools {
+
+    .jump-toggle,
+    .show-dropdown {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+
+
+    .jump-toggle input,
+    .show-dropdown label {
+        margin-right: 1em;
+    }
+
+    .jump-toggle input,
+    .jump-toggle label,
+    .show-dropdown select {
+        cursor: pointer;
     }
 }
 
@@ -162,4 +223,24 @@
 .board-wrap {
     aspect-ratio: 1/1;
     max-height: 90vh;
+}
+
+
+.fbt {
+    text-transform: uppercase;
+    line-height: 1.5;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fafafa;
+
+    &:hover:not(.disabled) {
+        background: $success;
+        color: $text;
+    }
+
+    &.disabled {
+        opacity: .5;
+        cursor: default;
+    }
 }

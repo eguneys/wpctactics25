@@ -168,7 +168,7 @@ function test_two_paths() {
 
 
 export class Treelala2 {
-  
+
 
   static make = (tree?: MoveTree, initial_fen: string = tree?.root.data.before_fen || INITIAL_FEN) => {
     let res = new Treelala2(initial_fen, tree)
@@ -399,7 +399,102 @@ export class Treelala2 {
 
     }
 
+  get is_next_hidden_cursor_path() {
+    let path = this.cursor_path
+    let t = this.tree
+    if (t) {
 
+      let i
+      if (path.length === 0) {
+        i = [t.root]
+      } else {
+        i = t._traverse_path(path)?.children
+      }
+
+      return !!i?.map(_ => _.data.path)
+        .find(_ => this.hidden_paths?.some(h => _.join('').startsWith(h.join(''))))
+    }
+  }
+
+
+  get can_navigate_next() {
+    let path = this.cursor_path
+    let t = this.tree
+    if (t) {
+
+      let i
+      if (path.length === 0) {
+        i = [t.root]
+      } else {
+        i = t._traverse_path(path)?.children
+      }
+
+      let new_path = i?.map(_ => _.data.path)
+        .find(_ => !this.hidden_paths?.some(h => _.join('').startsWith(h.join(''))))
+        return new_path !== undefined
+    }
+    return false
+  }
+
+    get can_navigate_prev() {
+      return this.cursor_path.length > 0
+    }
+
+    navigate_last(): void {
+      let path = this.cursor_path
+      let t = this.tree
+      if (t) {
+
+        let i
+        if (path.length === 0) {
+          i = [t.root]
+        } else {
+          i = t._traverse_path(path)?.children
+        }
+
+        let new_path = i?.map(_ => _.data.path)
+          .find(_ => !this.hidden_paths?.some(h => _.join('').startsWith(h.join(''))))
+        if (new_path) {
+
+          let i = t._traverse_path(new_path)
+          while (i!.children.length > 0) {
+            if (this.hidden_paths?.some(h => i!.children[0].data.path.join('').startsWith(h.join('')))) {
+              break
+            }
+            i = i!.children[0]
+          }
+
+          new_path = i!.data.path
+          this.try_set_cursor_path(new_path)
+        }
+      }
+    }
+
+    navigate_next(): void {
+      let path = this.cursor_path
+      let t = this.tree
+      if (t) {
+
+        let i
+        if (path.length === 0) {
+          i = [t.root]
+        } else {
+          i = t._traverse_path(path)?.children
+        }
+
+        let new_path = i?.map(_ => _.data.path)
+          .find(_ => !this.hidden_paths?.some(h => _.join('').startsWith(h.join(''))))
+        if (new_path) {
+          this.try_set_cursor_path(new_path)
+        }
+      }
+    }
+    navigate_prev(): void {
+      this.try_set_cursor_path(this.cursor_path.slice(0, -1))
+    }
+    navigate_first(): void {
+      this.try_set_cursor_path(this.cursor_path.slice(0, 1))
+    }
 
 }
 
