@@ -3,12 +3,14 @@
 
 header {
 
+    display: flex;
+    justify-content: space-between;
     padding: 0.5em;
     background: $secondary;
 
     .title-nav {
         h1 {
-            font-size: 2em;
+            font-size: 1.6em;
         }
 
         a {
@@ -16,6 +18,21 @@ header {
         }
     }
 
+    #topnav {
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $text;
+
+            &:hover {
+                color: $text-light;
+            }
+            &:active {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .main-wrap {
@@ -25,8 +42,10 @@ header {
     '. main .'
     '. . .';
 
+    grid-template-columns: 30px auto 30px;
+
     .main {
         grid-area: main;
-      padding: 1em;
+      padding: 1em 0;
     }
 }

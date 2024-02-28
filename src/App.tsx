@@ -4,6 +4,7 @@ import './App.scss'
 import { A, Route, HashRouter, useLocation } from '@solidjs/router'
 
 const Home = lazy(() => import('./Home'))
+const Dashboard = lazy(() => import('./Dashboard'))
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <MetaProvider>
         <HashRouter root={AppInRouter}>
           <Route path='/' component={Home} />
+          <Route path='/dashboard' component={Dashboard} />
         </HashRouter>
       </MetaProvider>
     </>
@@ -35,6 +37,7 @@ function AppInRouter(props: any) {
           <h1><A href="/">Woodpecker Chess Tactics</A></h1>
         </div>
         <nav id='topnav'>
+          <A href="/dashboard">Dashboard</A>
         </nav>
       </header>
       <div class={'main-wrap ' + path_klass()}>

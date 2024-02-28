@@ -1,0 +1,177 @@
+@import '_variables';
+
+.on-dashboard {
+    .dashboard {
+        display: grid;
+
+
+        grid-template-areas:
+        'list'
+        'stats'
+        'settings';
+
+
+        @media (min-width: 799px) {
+             grid-template-columns: 1fr 2fr;
+             grid-template-areas:
+             'list stats'
+             'settings stats';
+        }
+     
+    }
+
+   .puzzle-list {
+    grid-area: list
+   }
+
+   .settings {
+    grid-area: settings;
+   }
+
+   .stats {
+    grid-area: stats;
+   }
+
+
+    .puzzle-list {
+        h2 {
+            font-size: 1.8em;
+            font-weight: normal;
+            padding: 0.5em 0;
+        }
+
+
+        ul > li {
+            font-size: 1.2em;
+            margin: 2px;
+            padding: 0.8em;
+            border: 1px solid $text;
+
+            background: $secondary;
+
+            cursor: pointer;
+            user-select: none;
+
+            &:hover {
+                background: $secondary-light;
+            }
+
+            &.active {
+                background: $primary;
+            }
+        }
+
+    }
+
+
+    .settings {
+        .links {
+            padding: 1em;
+            display: flex;
+            flex-flow: column;
+            gap: 1em;
+
+            & .link {
+
+                user-select: none;
+                cursor: pointer;
+            }
+
+            & .red {
+                font-size: 0.8em;
+                color: $error;
+            }
+        }
+    }
+
+    .stats {
+        display: flex;
+        flex-flow: column;
+
+        background: $secondary;
+
+        .header {
+            border-radius: 2px 2px 0px 0;
+            padding: 0.5em;
+            background: $primary;
+            display: flex;
+            justify-content: space-between;
+
+            align-items: center;
+
+            & .link {
+                user-select: none;
+                cursor: pointer;
+                padding: 0.5em;
+                border-radius: 2px;
+                border: 1px solid $text;
+
+                &:hover {
+                    background: $primary-light;
+                }
+
+                &:active {
+                    background: $text;
+                    color: $primary;
+                }
+            }
+        }
+
+
+        .body {
+            flex: 1;
+            padding: 1em;
+            display: flex;
+            flex-flow: column;
+            gap: 1em;
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .progress {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+            }
+
+            .info {
+                display: flex;
+                flex-flow: column;
+                gap: 1em;
+
+                .out {
+                    padding-left: 4em;
+                    display: flex;
+                    justify-content: space-around;
+
+                    .solved {
+                        color: $success;
+                    }
+
+                    .failed {
+                        color: $error;
+                    }
+
+                    .skipped {
+                        color: $accent;
+                    }
+                }
+
+                & span:last-child {
+                    margin-top: 0.5em;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: flex-end;
+
+                .link.red {
+                    color: $error;
+                }
+            }
+        }
+    }
+}
