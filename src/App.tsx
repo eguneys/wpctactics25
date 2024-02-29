@@ -1,10 +1,12 @@
-import { createMemo, lazy } from 'solid-js'
+import { Show, createMemo, lazy } from 'solid-js'
 import { MetaProvider } from '@solidjs/meta'
 import './App.scss'
 import { A, Route, HashRouter, useLocation } from '@solidjs/router'
+import ProfileStore from './profile_store'
 
 const Home = lazy(() => import('./Home'))
 const Dashboard = lazy(() => import('./Dashboard'))
+const Profile = lazy(() => import('./Profile'))
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         <HashRouter root={AppInRouter}>
           <Route path='/' component={Home} />
           <Route path='/dashboard' component={Dashboard} />
+          <Route path='/profile' component={Profile} />
         </HashRouter>
       </MetaProvider>
     </>
@@ -37,7 +40,9 @@ function AppInRouter(props: any) {
           <h1><A href="/">Woodpecker Chess Tactics</A></h1>
         </div>
         <nav id='topnav'>
-          <A href="/dashboard">Dashboard</A>
+          <A href="/dashboard"><Show when={ProfileStore.active_user} fallback={"Dashboard"}>{ (user) =>
+          user()
+          }</Show></A>
         </nav>
       </header>
       <div class={'main-wrap ' + path_klass()}>

@@ -32,14 +32,16 @@
     grid-area: stats;
    }
 
+   .puzzle-list h2,
+   .settings h2 {
+       font-size: 1.8em;
+       font-weight: normal;
+       padding: 0.5em 0;
+   }
+
+
 
     .puzzle-list {
-        h2 {
-            font-size: 1.8em;
-            font-weight: normal;
-            padding: 0.5em 0;
-        }
-
 
         ul > li {
             font-size: 1.2em;
@@ -66,13 +68,22 @@
 
     .settings {
         .links {
-            padding: 1em;
+            padding: 0 0.5em;
             display: flex;
             flex-flow: column;
             gap: 1em;
 
+            .link a {
+                 color: $text;
+
+            }
+
             & .link {
 
+
+                &:active {
+                    text-decoration: underline;
+                }
                 user-select: none;
                 cursor: pointer;
             }
@@ -81,6 +92,7 @@
                 font-size: 0.8em;
                 color: $error;
             }
+
         }
     }
 
@@ -106,13 +118,21 @@
                 border-radius: 2px;
                 border: 1px solid $text;
 
+                a {
+                    color: $text;
+                }
+
                 &:hover {
                     background: $primary-light;
                 }
 
                 &:active {
                     background: $text;
-                    color: $primary;
+
+                    a {
+                       text-decoration: underline;
+                       color: $primary;
+                    }
                 }
             }
         }

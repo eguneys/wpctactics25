@@ -1,7 +1,29 @@
+import { A, useNavigate } from '@solidjs/router'
 import './Dashboard.scss'
+import ProfileStore from './profile_store'
+import { Show } from 'solid-js'
 
 
 const Dashboard = () => {
+
+    const navigate = useNavigate()
+
+    const on_change_profile = () => {
+        navigate('/profile')
+    }
+
+    const on_clear_stats = () => {
+
+    }
+
+    const on_delete_profile = () => {
+        let s = window.confirm('Do you want to delete your profile?')
+        if (s) {
+            ProfileStore.delete_active_profile()
+            navigate('/profile')
+        }
+    }
+
     return (<>
     <div class='dashboard'>
         <div class='puzzle-list'>
@@ -16,14 +38,18 @@ const Dashboard = () => {
         <div class='settings'>
             <h2>Settings</h2>
             <div class='links'>
-                <span class='link'>Change Profile</span>
-                <span class='link red'>Clear Statistics</span>
-                <span class='link red'>Delete Profile</span>
+                <span onClick={() => on_change_profile()} class='link'><A href='/profile'>Change Profile</A></span>
+                <span onClick={() => on_clear_stats()} class='link red'>Clear Statistics</span>
+                <span onClick={() => on_delete_profile()} class='link red'>Delete Profile</span>
             </div>
             </div>
         <div class='stats'>
             <div class='header'>
-                <span class='link'>Save Profile</span>
+                    <Show when={ProfileStore.active_user} fallback={
+                        <span class='link'> <A href='/profile'>Save Profile</A> </span>
+                    }>{ user => 
+                        <span>{user()}</span>
+                    }</Show>
                 <span>Tactics U1600 Statistics</span>
             </div>
             <div class='body'>
