@@ -1,7 +1,7 @@
 import { Show, createMemo, lazy } from 'solid-js'
 import { MetaProvider } from '@solidjs/meta'
 import './App.scss'
-import { A, Route, useLocation, Router } from '@solidjs/router'
+import { A, Route, HashRouter, useLocation } from '@solidjs/router'
 import ProfileStore from './profile_store'
 import { PlayerProvider } from './sound'
 
@@ -14,11 +14,11 @@ function App() {
     <>
       <PlayerProvider>
         <MetaProvider>
-        <Router base="wpctactics25" root={AppInRouter}>
+        <HashRouter root={AppInRouter}>
           <Route path='/' component={Home} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/profile' component={Profile} />
-        </Router>
+        </HashRouter>
       </MetaProvider>
     </PlayerProvider>
     </>
