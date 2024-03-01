@@ -14,7 +14,7 @@ function App() {
     <>
       <PlayerProvider>
         <MetaProvider>
-        <Router root={AppInRouter}>
+        <Router base="wpctactics25" root={AppInRouter}>
           <Route path='/' component={Home} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/profile' component={Profile} />
