@@ -6,6 +6,7 @@ import { Shala } from './Shalala'
 import StudyRepo, { PGNStudy } from './studyrepo'
 import { useParams } from '@solidjs/router'
 import { opposite } from 'chessops'
+import { usePlayer } from './sound'
 
 
 const Home = () => {
@@ -28,6 +29,7 @@ const Home = () => {
 
 const HomeLoaded = (props: { pgn: PGNStudy }) => {
 
+    const Player = usePlayer()
     const [is_jump_to_next_puzzle_immediately, set_is_jump_to_next_puzzle_immediately] = createSignal(false)
 
     const [is_pending, set_is_pending] = createSignal(false)
@@ -80,6 +82,14 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
         }
     }))
 
+    createEffect(on(() => puzzle_lala().tree?.get_at(puzzle_lala().cursor_path), (v) => {
+
+        if (v) {
+            Player.move(v)
+        }
+
+    }))
+
     const on_next_puzzle = () => {
         
         set_i_chapter_index(i_chapter_index() + 1)
@@ -123,10 +133,6 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
         shalala.set_on_wheel(Math.sign(e.deltaY))
 
     }
-
-    createEffect(() => {
-        console.log(is_jump_to_next_puzzle_immediately())
-    })
 
     let el_sixth: HTMLDivElement
 
@@ -206,7 +212,7 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
                         <label for='show-only'>Show Only</label> 
                         <select id='show-only'>
                             <option value='failed'>Solved Puzzles</option>
-                            <option value='failed'>Regular Puzzles</option>
+                            <option value='failed'>Unseen Puzzles</option>
                             <option value='failed'>Failed Puzzles</option>
                             <option value='failed'>Skipped Puzzles</option>
                         </select>

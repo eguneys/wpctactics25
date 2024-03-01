@@ -7,14 +7,21 @@ header {
     justify-content: space-between;
     padding: 0.5em;
     background: $secondary;
+    max-width: 1800px;
+    justify-content: space-between;
+    margin: 0 auto;
 
     .title-nav {
         h1 {
-            font-size: 1.6em;
+            font-size: 2em;
         }
 
         a {
             color: $text;
+        }
+
+        a:hover {
+            color: $text-light;
         }
     }
 
@@ -23,6 +30,7 @@ header {
         align-items: center;
 
         a {
+            font-size: 1.2em;
             color: $text;
 
             &:hover {

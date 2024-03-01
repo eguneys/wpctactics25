@@ -33,7 +33,7 @@ const Profile = () => {
         </div>
         <div class='save'>
             <form>
-            <h4>Save New Profile</h4>
+            <h4>New Profile</h4>
             <input required minLength={3} maxLength={13} onChange={_ => set_username_input(_.currentTarget.value)} type='text' placeholder='Profile Name'></input>
             <button onClick={() => {
                 let i = username_input()

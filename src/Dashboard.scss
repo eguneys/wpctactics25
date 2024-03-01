@@ -73,6 +73,12 @@
             flex-flow: column;
             gap: 1em;
 
+            .volume {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+            }
+
             .link a {
                  color: $text;
 
@@ -104,7 +110,7 @@
 
         .header {
             border-radius: 2px 2px 0px 0;
-            padding: 0.5em;
+            padding: 1.2em;
             background: $primary;
             display: flex;
             justify-content: space-between;

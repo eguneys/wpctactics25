@@ -3,6 +3,7 @@ import { MetaProvider } from '@solidjs/meta'
 import './App.scss'
 import { A, Route, HashRouter, useLocation } from '@solidjs/router'
 import ProfileStore from './profile_store'
+import { PlayerProvider } from './sound'
 
 const Home = lazy(() => import('./Home'))
 const Dashboard = lazy(() => import('./Dashboard'))
@@ -11,6 +12,7 @@ const Profile = lazy(() => import('./Profile'))
 function App() {
   return (
     <>
+      <PlayerProvider>
         <MetaProvider>
         <HashRouter root={AppInRouter}>
           <Route path='/' component={Home} />
@@ -18,6 +20,7 @@ function App() {
           <Route path='/profile' component={Profile} />
         </HashRouter>
       </MetaProvider>
+    </PlayerProvider>
     </>
   )
 }

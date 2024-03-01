@@ -2,10 +2,13 @@ import { A, useNavigate } from '@solidjs/router'
 import './Dashboard.scss'
 import ProfileStore from './profile_store'
 import { Show } from 'solid-js'
+import throttle from './common/throttle'
+import { usePlayer } from './sound'
 
 
 const Dashboard = () => {
 
+    const Player = usePlayer()
     const navigate = useNavigate()
 
     const on_change_profile = () => {
@@ -24,6 +27,11 @@ const Dashboard = () => {
         }
     }
 
+    const setVolume = throttle(150, (v: number) => {
+        Player.setVolume(v)
+        Player.play('move')
+    })
+
     return (<>
     <div class='dashboard'>
         <div class='puzzle-list'>
@@ -39,6 +47,7 @@ const Dashboard = () => {
             <h2>Settings</h2>
             <div class='links'>
                 <span onClick={() => on_change_profile()} class='link'><A href='/profile'>Change Profile</A></span>
+                <div class='volume'><label>Volume</label><input value={Player.getVolume()} onInput={(e) => setVolume(parseFloat(e.currentTarget.value))} min={0} max={1} step={0.1} type='range'></input></div>
                 <span onClick={() => on_clear_stats()} class='link red'>Clear Statistics</span>
                 <span onClick={() => on_delete_profile()} class='link red'>Delete Profile</span>
             </div>

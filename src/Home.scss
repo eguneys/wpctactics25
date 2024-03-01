@@ -16,7 +16,7 @@
             'gauge'
             'replay'
             'side';
-        row-gap: 1em;
+        gap: 1em;
         grid-template-rows: fit-content(0);
 
 
@@ -24,9 +24,15 @@
            grid-template-areas:
            'board gauge replay'
            'side side side';
-           grid-template-columns: min(82vw, 82vh) 1fr minmax(240px, 400px);
+           grid-template-columns: min(82vw, 82vh) 10px minmax(240px, 400px);
        }
 
+       @media (min-width: 1259px) {
+        grid-template-areas:
+        'side board gauge replay';
+
+        grid-template-columns: 1fr min(82vw, 82vh) 10px minmax(240px, 400px);
+       }
 
     }
 
@@ -61,6 +67,14 @@
         grid-template-areas: 'header tools'
             'list list';
 
+        grid-template-rows: repeat(3, fit-content(0));
+
+        @media (min-width: 1259px) {
+            grid-template-areas: 'header'
+            'tools'
+            'list'
+        }
+
         .side-header {
             grid-area: header;
         }
@@ -87,6 +101,7 @@
             display: flex;
             flex-flow: column;
             justify-content: space-around;
+            gap: 1em;
         }
     }
 

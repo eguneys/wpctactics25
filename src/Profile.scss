@@ -8,23 +8,26 @@
       grid-template-areas: 
       'list'
       'save';
-
+      grid-template-rows: fit-content(0);
+      justify-content: center;
       gap: 1em;
 
 
       @media (min-width: 799px) {
         grid-template-areas: 'list save';
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: fit-content(0) min(400px);
       }
 
       .list {
-          height: 80vh;
           display: flex;
           flex-flow: column;
           align-items: center;
+          gap: 2em;
+          padding: 1em;
 
           .scroll {
-              max-height: 50vh;
+              background: $secondary;
+              height: 50vh;
               overflow-y: scroll;
 
 
@@ -51,9 +54,9 @@
                       text-align: center;
                       padding: 2em;
                       border: none;
-                      background: $secondary;
                       color: $text;
                       border-radius: 2px;
+                      background: $secondary;
                       box-shadow: 0px 0px 2px $secondary-dim;
 
                       user-select: none;
@@ -75,8 +78,18 @@
       .save {
         display: flex;
         justify-content: center;
+        align-items: center;
+        padding: 1em;
+
 
         form {
+          border-radius: 2px;
+          background: $secondary;
+          box-shadow: 0px 0px 2px $secondary-dim;
+
+          padding: 1em;
+
+
           display: flex;
           flex-flow: column;
           justify-content: center;
