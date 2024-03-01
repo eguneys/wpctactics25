@@ -2,7 +2,8 @@
 
 
 
-ROUTES=""
+ROUTES="dashboard
+profile"
 
 cd dist
 for f in $ROUTES 
