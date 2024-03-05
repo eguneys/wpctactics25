@@ -1,33 +1,59 @@
-import { Show, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
+import { Match, Show, Switch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
 import Chessboard from './Chessboard'
 import Chesstree2, { Treelala2 } from './Chesstree2'
 import './Home.scss'
 import { Shala } from './Shalala'
 import StudyRepo, { PGNStudy } from './studyrepo'
-import { useParams } from '@solidjs/router'
 import { opposite } from 'chessops'
 import { usePlayer } from './sound'
-
+import ProfileStore, { UserRun, UserSetRunStore } from './profile_store'
+import { format_ms_time } from './util'
 
 const Home = () => {
 
-    const params = useParams()
-    let _id = params.id
-    console.log(_id)
+    let username = ProfileStore.active_user ?? ProfileStore.anonymous_user
 
-    const [pgn] = createResource('u1600', StudyRepo.read_study)
+    const [active_run] = createResource<UserRun>(() => UserSetRunStore.get_or_create_active_run_for_user(username))
+
+    const set_id = createMemo(() => active_run()?.set_id)
+
+    const [pgn] = createResource(set_id, set_id => StudyRepo.get_study_by_id(set_id))
 
     return (<>
-
-<Show when={pgn.loading} fallback={
-    <HomeLoaded pgn={pgn()!}/>
-}>
-    <span>Loading...</span>
-</Show>
+        <Show when={pgn.loading} fallback={
+            <Show when={pgn.error} fallback={
+                <Show when={!!pgn() && !!active_run()}>{
+                    <HomeLoaded pgn={pgn()!} run={active_run()!} />
+                }</Show>
+            }>{
+                <span>Failed loading PGNs..</span>
+            }</Show>
+        }>
+            <span>Loading...</span>
+        </Show>
     </>)
 }
 
-const HomeLoaded = (props: { pgn: PGNStudy }) => {
+const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
+
+    const [current_run, set_current_run] = createSignal(props.run, { equals: false })
+    const pgn = () => props.pgn
+
+    let tick_interval: number
+    const [elapsed_ms, set_elapsed_ms] = createSignal(0)
+
+
+    const all_puzzles = createMemo(() => [...Array(props.pgn.chapters.length).keys()])
+    const solved_puzzles = createMemo(() => current_run().solved)
+    const failed_puzzles = createMemo(() => current_run().failed)
+    const skipped_puzzles = createMemo(() => current_run().skipped)
+    const unattempted_puzzles = createMemo(() => {
+        let attempted = [
+            ...solved_puzzles(),
+            ...failed_puzzles(),
+            ...skipped_puzzles()]
+        return all_puzzles().filter(_ => !attempted.includes(_))
+    })
 
     const Player = usePlayer()
     const [is_jump_to_next_puzzle_immediately, set_is_jump_to_next_puzzle_immediately] = createSignal(false)
@@ -35,10 +61,9 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
     const [is_pending, set_is_pending] = createSignal(false)
     const [is_view_solution, set_is_view_solution] = createSignal(false)
 
-    const [i_chapter_index, set_i_chapter_index] = createSignal(0)
+    const [i_chapter_index, set_i_chapter_index] = createSignal(unattempted_puzzles()[0])
     const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index()])
 
-    set_i_chapter_index(0)
     const shalala = new Shala()
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
         let res = Treelala2.make(chapter.pgn.tree)
@@ -47,9 +72,12 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
         shalala.on_set_fen_uci(res.initial_fen)
 
         set_is_view_solution(false)
+        set_elapsed_ms(0)
+
       setTimeout(() => {
         res.cursor_path = res.tree!.root.data.path
         set_is_view_solution(true)
+        tick_interval = setInterval(() => set_elapsed_ms(elapsed_ms() + 1000), 1000)
       }, 600)
 
       return res
@@ -111,6 +139,42 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
         }
     })
 
+
+    let reveal_result = createMemo(() => {
+        if (puzzle_lala().is_revealed) {
+            let failed = puzzle_lala().failed_paths_expanded.length > 0
+            let revealed = puzzle_lala().revealed_paths_expanded.length > 0
+
+
+            if (failed) {
+                return 'failed'
+            } else if (revealed) {
+                return 'revealed'
+            } else {
+                return 'solved'
+            }
+        }
+        return 'thinking'
+    })
+
+
+    createEffect(on(reveal_result, r => {
+        let i = i_chapter_index()
+        let run = current_run()
+        if (r === 'failed') {
+            run.failed.push(i)
+        } else if (r === 'revealed') {
+            run.skipped.push(i)
+        } else if (r === 'solved') {
+            run.solved.push(i)
+        }
+
+        run.elapsed_ms += elapsed_ms()
+        UserSetRunStore._save_run(run)
+        clearInterval(tick_interval)
+        set_current_run(run)
+    }))
+
     createEffect(on(() => shalala.on_wheel, (dir) => {
         if (is_pending()) {
             return
@@ -163,7 +227,7 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
             <div class='replay-wrap'>
                 <div class='replay'>
                     <div class='replay-header'>
-                        <span>#1</span>
+                        <span>#{i_chapter_index()+1}</span>
                         <span>All Puzzles</span>
                         <span>lichess</span>
                     </div>
@@ -182,12 +246,25 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
                                 <div class='info'>
                                     <h3><span class='turn'>{turn_to_play()}</span> to play</h3>
                                     <span>Find the best move for {turn_to_play()}</span>
+                                    <h4>{format_ms_time(elapsed_ms(), false)}</h4>
                                 </div>
                                 <span onClick={() => on_view_solution()} class={'solution' + (is_view_solution() ? '' : ' fade-out')}>View Solution</span>
                             </>
                         }>
                             <>
                                 <h3>Puzzle Completed!</h3>
+                                <h4>{format_ms_time(elapsed_ms(), false)}</h4>
+                                <Switch>
+                                    <Match when={reveal_result() === 'solved'}>
+                                        <span class='success'>solved +1</span>
+                                    </Match>
+                                    <Match when={reveal_result() === 'failed'}>
+                                        <span class='success'>failed +1</span>
+                                    </Match>
+                                    <Match when={reveal_result() === 'revealed'}>
+                                        <span class='success'>skipped +1</span>
+                                    </Match>
+                                </Switch>
 
                                 <Show when={!is_jump_to_next_puzzle_immediately()}>
                                     <span onClick={() => on_next_puzzle()} class='link'>Continue with next puzzle.</span>
@@ -199,9 +276,9 @@ const HomeLoaded = (props: { pgn: PGNStudy }) => {
             </div>
             <div class='side'>
                 <div class='side-header'>
-                    <span class='title'>Puzzle Set U1600 </span>
-                    <span class='run'>Run #1</span>
-                    <span class='time'>Total Time: 1:02:50</span>
+                    <span class='title'>Set: {pgn().name}</span>
+                    <span class='run'>Run: #{current_run().no}</span>
+                    <span class='time'>Total Time: {format_ms_time(current_run().elapsed_ms)}</span>
                 </div>
                 <div class='side-tools'>
                     <div class='jump-toggle'>

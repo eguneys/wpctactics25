@@ -185,17 +185,31 @@
                     }
                 }
 
-                & span:last-child {
+                & > span:last-child {
                     margin-top: 0.5em;
                 }
+
             }
 
             .buttons {
                 display: flex;
                 justify-content: flex-end;
 
-                .link.red {
-                    color: $error;
+                button {
+                    padding: 0.5em;
+                    border: 1px solid $text;
+                    border-radius: 2px;
+                    background: $primary;
+                    color: $text;
+                }
+
+                .link {
+                    user-select: none;
+                    cursor: pointer;
+
+                    &.red {
+                        color: $error;
+                    }
                 }
             }
         }

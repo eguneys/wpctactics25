@@ -205,6 +205,9 @@ export class Treelala2 {
   get solved_paths_expanded() {
     return this._solved_paths.expand_paths
   }
+  get revealed_paths_expanded() {
+    return this._revealed_paths.expand_paths
+  }
 
 
   get initial_color() {
