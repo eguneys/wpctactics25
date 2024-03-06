@@ -103,6 +103,56 @@
             justify-content: space-around;
             gap: 1em;
         }
+
+
+        .side-list {
+            display: flex;
+            flex-flow: row wrap-reverse;
+
+
+            span {
+
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+                border-radius: 3px;
+
+                user-select: none;
+                cursor: pointer;
+                flex: 0 0 2.3em;
+                height: 1.6em;
+                margin: 0.4em 0.5em 0 0;
+                color: $text;
+                background: #383838;
+                opacity: .55;
+                font-size: .85em;
+                font-weight: bold;
+                justify-content: center;
+
+                &.current,
+                &.failed,
+                &.solved,
+                &.skipped {
+                    opacity: 0.86;
+                }
+
+                &.current {
+                    background: $primary;
+                }
+
+                &.failed {
+                    background: $error;
+                }
+
+                &.solved {
+                    background: $success;
+                }
+
+                &.skipped {
+                    background: #c9c145;
+                }
+            }
+        }
     }
 
 .side .side-header,

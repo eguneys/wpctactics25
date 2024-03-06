@@ -1,4 +1,4 @@
-import { Match, Show, Switch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
+import { For, Match, Show, Switch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
 import Chessboard from './Chessboard'
 import Chesstree2, { Treelala2 } from './Chesstree2'
 import './Home.scss'
@@ -77,6 +77,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
       setTimeout(() => {
         res.cursor_path = res.tree!.root.data.path
         set_is_view_solution(true)
+
+        clearInterval(tick_interval)
         tick_interval = setInterval(() => set_elapsed_ms(elapsed_ms() + 1000), 1000)
       }, 600)
 
@@ -209,6 +211,17 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
     const turn_to_play = createMemo(() => opposite(puzzle_lala().initial_color!))
 
+
+    const puzzle_span_klass_for = (i: number) => {
+        
+        let skipped = createMemo(() => skipped_puzzles().includes(i))
+        let solved = createMemo(() => solved_puzzles().includes(i))
+        let failed = createMemo(() => failed_puzzles().includes(i))
+        let current = createMemo(() => i === i_chapter_index())
+
+        return current() ? 'current' : skipped() ? 'skipped' : solved() ? 'solved' : failed() ? 'failed': ''
+    }
+
     return (<>
         <div ref={_ => el_sixth = _} class='home'>
 
@@ -296,7 +309,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                     </div>
                 </div>
                 <div class='side-list'>
-                    List of Puzzles in the Set
+                    <For each={all_puzzles()}>{i => 
+                      <span class={puzzle_span_klass_for(i)} onClick={() => set_i_chapter_index(i)}>{i+1}</span> 
+                    }</For>
                 </div>
             </div>
         </div>
