@@ -6,6 +6,8 @@ import throttle from './common/throttle'
 import { usePlayer } from './sound'
 import StudyRepo, { StudyInConfig } from './studyrepo'
 import { format_ms_time } from './util'
+import { SetFilter } from './Home'
+import SessionStore from './session_store'
 
 const Dashboard = () => {
 
@@ -85,6 +87,14 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
         UserSetRunStore.clear_runs(username(), selected_study_id())
     }
 
+    SessionStore.navigate_filter = undefined
+    const set_filter_and_navigate = (filter: SetFilter) => {
+
+        SessionStore.navigate_filter = filter
+        navigate('/')
+
+    }
+
     return (<>
     <div class='dashboard'>
         <div class='puzzle-list'>
@@ -146,9 +156,9 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
                 <div class='info'>
                     <span>Attempted: {get_attempted_for_run(current_run)}/{current_run.total}</span>
                     <div class='out'>
-                      <span class='solved'>Solved: {current_run.solved.length}/{get_attempted_for_run(current_run)}</span>
-                      <span class='failed'>Failed: {current_run.failed.length}/{get_attempted_for_run(current_run)}</span>
-                      <span class='skipped'>Skipped: {current_run.skipped.length}/{get_attempted_for_run(current_run)} </span>
+                      <span onClick={() => set_filter_and_navigate('solved') } class='solved'>Solved: {current_run.solved.length}/{get_attempted_for_run(current_run)}</span>
+                      <span onClick={() => set_filter_and_navigate('failed') } class='failed'>Failed: {current_run.failed.length}/{get_attempted_for_run(current_run)}</span>
+                      <span onClick={() => set_filter_and_navigate('skipped') } class='skipped'>Skipped: {current_run.skipped.length}/{get_attempted_for_run(current_run)} </span>
                     </div>
                     <span>Time Spent: {format_ms_time(current_run.elapsed_ms)} </span>
                 </div>

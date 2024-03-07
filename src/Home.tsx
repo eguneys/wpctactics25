@@ -8,6 +8,7 @@ import { opposite } from 'chessops'
 import { usePlayer } from './sound'
 import ProfileStore, { UserRun, UserSetRunStore } from './profile_store'
 import { format_ms_time } from './util'
+import SessionStore from './session_store'
 
 const Home = () => {
 
@@ -34,6 +35,8 @@ const Home = () => {
     </>)
 }
 
+export type SetFilter = 'solved' | 'failed' | 'skipped' | 'unseen'
+
 const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
     const [current_run, set_current_run] = createSignal(props.run, { equals: false })
@@ -42,6 +45,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     let tick_interval: number
     const [elapsed_ms, set_elapsed_ms] = createSignal(0)
 
+
+    const [filter, set_filter] = createSignal<SetFilter | undefined>(SessionStore.navigate_filter)
+    SessionStore.navigate_filter = undefined
 
     const all_puzzles = createMemo(() => [...Array(props.pgn.chapters.length).keys()])
     const solved_puzzles = createMemo(() => current_run().solved)
@@ -54,6 +60,21 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             ...skipped_puzzles()]
         return all_puzzles().filter(_ => !attempted.includes(_))
     })
+    const filtered_puzzles = createMemo(() => {
+        let f = filter()
+
+        if (f === 'failed') {
+            return failed_puzzles()
+        } else if (f === 'skipped') {
+            return skipped_puzzles()
+        } else if (f === 'solved') {
+            return solved_puzzles()
+        } else if (f === 'unseen') {
+            return unattempted_puzzles()
+        }
+    })
+
+    const in_run = createMemo(() => filter() === undefined)
 
     const Player = usePlayer()
     const [is_jump_to_next_puzzle_immediately, set_is_jump_to_next_puzzle_immediately] = createSignal(false)
@@ -61,8 +82,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const [is_pending, set_is_pending] = createSignal(false)
     const [is_view_solution, set_is_view_solution] = createSignal(false)
 
-    const [i_chapter_index, set_i_chapter_index] = createSignal(unattempted_puzzles()[0])
-    const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index()])
+    const [i_chapter_index, set_i_chapter_index] = createSignal<number | undefined>(filtered_puzzles()?.[0] ?? unattempted_puzzles()[0])
+    const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index() ?? 0])
 
     const shalala = new Shala()
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
@@ -122,7 +143,20 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
     const on_next_puzzle = () => {
         
-        set_i_chapter_index(i_chapter_index() + 1)
+        let i = i_chapter_index()
+        if (i === undefined) {
+            return
+        }
+
+        let p = filtered_puzzles()
+        if (p) {
+            console.log(p, i, p.indexOf(i))
+          i = p[p.indexOf(i) + 1]
+          set_i_chapter_index(i)
+        } else {
+            set_i_chapter_index(i + 1)
+        }
+
     }
 
     const on_view_solution = () => {
@@ -143,6 +177,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
 
     let reveal_result = createMemo(() => {
+        if (!in_run()) {
+            return 'not_in_run'
+        }
         if (puzzle_lala().is_revealed) {
             let failed = puzzle_lala().failed_paths_expanded.length > 0
             let revealed = puzzle_lala().revealed_paths_expanded.length > 0
@@ -161,7 +198,12 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
 
     createEffect(on(reveal_result, r => {
-        let i = i_chapter_index()
+
+        if (r === 'not_in_run' || r === 'thinking') {
+            return
+        }
+
+        let i = i_chapter_index()!
         let run = current_run()
         if (r === 'failed') {
             run.failed.push(i)
@@ -219,7 +261,58 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         let failed = createMemo(() => failed_puzzles().includes(i))
         let current = createMemo(() => i === i_chapter_index())
 
-        return current() ? 'current' : skipped() ? 'skipped' : solved() ? 'solved' : failed() ? 'failed': ''
+        const filtered = createMemo(() => filtered_puzzles()?.includes(i))
+
+        let res = createMemo(() => current() ? 'current' : skipped() ? 'skipped' : solved() ? 'solved' : failed() ? 'failed': '')
+
+
+        return [
+            filtered() ? 'filtered' : '',
+            res()
+        ].join(' ')
+    }
+
+    const set_filter_and_change_i = (_: string) => {
+        set_filter(_ === '' ? undefined : _ as SetFilter)
+
+        let p = filtered_puzzles()
+        if (p) {
+            set_i_chapter_index(p[0])
+        } else {
+            set_i_chapter_index(unattempted_puzzles()[0])
+        }
+    }
+
+    const set_filter_for_index = (i: number) => {
+        let skipped = skipped_puzzles().includes(i)
+        let solved = solved_puzzles().includes(i)
+        let failed = failed_puzzles().includes(i)
+
+        if (skipped) {
+            set_filter('skipped')
+        } else if (solved) {
+            set_filter('solved')
+        } else if (failed) {
+            set_filter('solved')
+        } else {
+            set_filter('unseen')
+        }
+    }
+
+    const puzzle_title = () => {
+        let f = filter()
+
+        if (f === 'failed') {
+            return 'Failed'
+        } else if (f === 'skipped') {
+            return 'Skipped'
+        } else if (f === 'solved') {
+            return 'Solved'
+        } else if (f === 'unseen') {
+            return 'Unseen'
+        }
+
+        return 'All'
     }
 
     return (<>
@@ -240,8 +333,12 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             <div class='replay-wrap'>
                 <div class='replay'>
                     <div class='replay-header'>
-                        <span>#{i_chapter_index()+1}</span>
-                        <span>All Puzzles</span>
+                        <Show when={i_chapter_index() !== undefined} fallback={
+                            <span> There are no {puzzle_title()} Puzzles </span>
+                        }>
+                            <span>#{i_chapter_index()! + 1}</span>
+                            <span>{puzzle_title()} Puzzles</span>
+                        </Show>
                         <span>lichess</span>
                     </div>
                     <div class='replay-v'>
@@ -259,14 +356,18 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                                 <div class='info'>
                                     <h3><span class='turn'>{turn_to_play()}</span> to play</h3>
                                     <span>Find the best move for {turn_to_play()}</span>
-                                    <h4>{format_ms_time(elapsed_ms(), false)}</h4>
+                                    <Show when={in_run()}>
+                                        <h4>{format_ms_time(elapsed_ms(), false)}</h4>
+                                    </Show>
                                 </div>
                                 <span onClick={() => on_view_solution()} class={'solution' + (is_view_solution() ? '' : ' fade-out')}>View Solution</span>
                             </>
                         }>
                             <>
                                 <h3>Puzzle Completed!</h3>
-                                <h4>{format_ms_time(elapsed_ms(), false)}</h4>
+                                <Show when={in_run()}>
+                                   <h4>{format_ms_time(elapsed_ms(), false)}</h4>
+                                </Show>
                                 <Switch>
                                     <Match when={reveal_result() === 'solved'}>
                                         <span class='success'>solved +1</span>
@@ -300,17 +401,18 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                     </div>
                     <div class='show-dropdown'>
                         <label for='show-only'>Show Only</label> 
-                        <select id='show-only'>
-                            <option value='failed'>Solved Puzzles</option>
-                            <option value='failed'>Unseen Puzzles</option>
+                        <select value={filter() === undefined ? '' : filter()} onChange={_ => set_filter_and_change_i(_.currentTarget.value) } id='show-only'>
+                            <option value=''>Normal Run</option>
+                            <option value='solved'>Solved Puzzles</option>
+                            <option value='unseen'>Unseen Puzzles</option>
                             <option value='failed'>Failed Puzzles</option>
-                            <option value='failed'>Skipped Puzzles</option>
+                            <option value='skipped'>Skipped Puzzles</option>
                         </select>
                     </div>
                 </div>
                 <div class='side-list'>
                     <For each={all_puzzles()}>{i => 
-                      <span class={puzzle_span_klass_for(i)} onClick={() => set_i_chapter_index(i)}>{i+1}</span> 
+                      <span class={puzzle_span_klass_for(i)} onClick={() => { set_filter_for_index(i); set_i_chapter_index(i) }}>{i+1}</span> 
                     }</For>
                 </div>
             </div>

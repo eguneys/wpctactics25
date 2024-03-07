@@ -172,6 +172,11 @@
                     display: flex;
                     justify-content: space-around;
 
+                    span {
+                        user-select: none;
+                        cursor: pointer;
+                    }
+
                     .solved {
                         color: $success;
                     }
