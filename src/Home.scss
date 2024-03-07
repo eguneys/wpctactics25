@@ -16,7 +16,7 @@
             'gauge'
             'replay'
             'side';
-        gap: 1em;
+        gap: 0.5em;
         grid-template-rows: fit-content(0);
 
 
@@ -109,6 +109,9 @@
             display: flex;
             flex-flow: row wrap-reverse;
 
+            @media (min-width: 1259px) {
+                max-width: 241px;
+            }
 
             span {
 
