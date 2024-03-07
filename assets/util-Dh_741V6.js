@@ -1,1 +1,0 @@
-function d(s,e=!0){const t=Math.floor(s/1e3),o=Math.floor(t/60),a=t%60,i=Math.floor(o/60),c=o%60,f=i.toString().padStart(2,"0"),n=c.toString().padStart(2,"0"),r=a.toString().padStart(2,"0");return e?`${f}:${n}:${r}`:`${n}:${r}`}export{d as f};
