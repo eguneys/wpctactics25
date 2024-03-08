@@ -219,4 +219,34 @@
             }
         }
     }
+
+
+    .stats .progress {
+        .progress-bar {
+            border-radius: 2px;
+            flex: 1;
+            background: $text;
+            display: flex;
+
+            box-shadow: inset 2px 2px 2px $dark-text, inset -2px -2px 2px $dark-text;
+            border: 2px solid $text-light;
+
+            span {
+              margin: 2px 0;
+              &.skipped {
+                margin-right: 2px;
+                background: $accent;
+              }
+
+              &.solved {
+                margin-left: 2px;
+                background: $success;
+              }
+
+              &.failed {
+                background: $error;
+              }
+            }
+        }
+    }
 }

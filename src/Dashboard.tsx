@@ -151,7 +151,14 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
                   <div class='runs'><span> Run #{i_selected_run() + 1} </span></div>
                 </div>
 
-                <div class='progress'>Progress Bar</div>
+                <div class='progress'>
+                
+                   <div class='progress-bar'>
+                      <span class='solved' style={`width: ${(current_run.solved.length / current_run.total) * 100}%;`}> </span>
+                      <span class='failed' style={`width: ${(current_run.failed.length / current_run.total) * 100}%;`}> </span>
+                      <span class='skipped' style={`width: ${(current_run.skipped.length / current_run.total) * 100}%;`}> </span>
+                   </div>
+                </div>
 
                 <div class='info'>
                     <span>Attempted: {get_attempted_for_run(current_run)}/{current_run.total}</span>
