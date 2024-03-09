@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
+import { For, Match, Show, Switch, batch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
 import Chessboard from './Chessboard'
 import Chesstree2, { Treelala2 } from './Chesstree2'
 import './Home.scss'
@@ -6,7 +6,7 @@ import { Shala } from './Shalala'
 import StudyRepo, { PGNStudy } from './studyrepo'
 import { opposite } from 'chessops'
 import { usePlayer } from './sound'
-import ProfileStore, { UserRun, UserSetRunStore } from './profile_store'
+import ProfileStore, { UserRun, UserSetRunStore, get_attempted_for_run } from './profile_store'
 import { format_ms_time } from './util'
 import SessionStore from './session_store'
 
@@ -39,6 +39,7 @@ export type SetFilter = 'solved' | 'failed' | 'skipped' | 'unseen'
 
 const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
+    let username = ProfileStore.active_user ?? ProfileStore.anonymous_user
     const [current_run, set_current_run] = createSignal(props.run, { equals: false })
     const pgn = () => props.pgn
 
@@ -50,9 +51,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     SessionStore.navigate_filter = undefined
 
     const all_puzzles = createMemo(() => [...Array(props.pgn.chapters.length).keys()])
-    const solved_puzzles = createMemo(() => current_run().solved)
-    const failed_puzzles = createMemo(() => current_run().failed)
-    const skipped_puzzles = createMemo(() => current_run().skipped)
+    const solved_puzzles = () => current_run().solved
+    const failed_puzzles = () => current_run().failed
+    const skipped_puzzles = () => current_run().skipped
     const unattempted_puzzles = createMemo(() => {
         let attempted = [
             ...solved_puzzles(),
@@ -82,7 +83,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const [is_pending, set_is_pending] = createSignal(false)
     const [is_view_solution, set_is_view_solution] = createSignal(false)
 
-    const [i_chapter_index, set_i_chapter_index] = createSignal<number | undefined>(filtered_puzzles()?.[0] ?? unattempted_puzzles()[0])
+    let f_p = filtered_puzzles()
+    const [i_chapter_index, set_i_chapter_index] = createSignal<number | undefined>(f_p ? f_p[0] : unattempted_puzzles()[0])
     const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index() ?? 0])
 
     const shalala = new Shala()
@@ -104,6 +106,15 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
       }, 600)
 
       return res
+    }))
+
+
+    createEffect(on(in_run, (v) => {
+        set_elapsed_ms(0)
+        clearInterval(tick_interval)
+        if (v) {
+            tick_interval = setInterval(() => set_elapsed_ms(elapsed_ms() + 1000), 1000)
+        }
     }))
 
 
@@ -150,15 +161,16 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
         let p = filtered_puzzles()
         if (p) {
-            console.log(p, i, p.indexOf(i))
           i = p[p.indexOf(i) + 1]
-          set_i_chapter_index(i)
         } else {
-            set_i_chapter_index(i + 1)
+            i = i + 1
         }
-
+        if (i >= props.pgn.chapters.length) {
+            set_i_chapter_index(undefined)
+        } else {
+            set_i_chapter_index(i)
+        }
     }
-
     const on_view_solution = () => {
         if (!is_view_solution()) {
             return false
@@ -265,7 +277,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
         let res = createMemo(() => current() ? 'current' : skipped() ? 'skipped' : solved() ? 'solved' : failed() ? 'failed': '')
 
-
         return [
             filtered() ? 'filtered' : '',
             res()
@@ -282,7 +293,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             set_i_chapter_index(unattempted_puzzles()[0])
         }
     }
-
     const set_filter_for_index = (i: number) => {
         let skipped = skipped_puzzles().includes(i)
         let solved = solved_puzzles().includes(i)
@@ -315,13 +325,26 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         return 'All'
     }
 
+
+    let [waiting_new_run, set_waiting_new_run] = createSignal(false)
+    const start_a_new_run = async () => {
+        set_waiting_new_run(true)
+        let res = await UserSetRunStore.start_new_run(username)
+
+        batch(() => {
+          set_waiting_new_run(false)
+          set_current_run(res)
+          set_i_chapter_index(0)
+        })
+    }
+
     return (<>
         <div ref={_ => el_sixth = _} class='home'>
 
             <div class='board-wrap'>
                 <Chessboard
                     orientation={opposite(puzzle_lala().initial_color ?? 'white')}
-                    movable={!is_pending() && !puzzle_lala().is_revealed && puzzle_lala().is_next_hidden_cursor_path}
+                    movable={i_chapter_index() !== undefined && !is_pending() && !puzzle_lala().is_revealed && puzzle_lala().is_next_hidden_cursor_path}
                     doPromotion={shalala.promotion}
                     onMoveAfter={shalala.on_move_after}
                     fen_uci={shalala.fen_uci}
@@ -351,6 +374,36 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                         <button onClick={() => puzzle_lala().navigate_last()} class={"fbt last" + (!is_pending() && puzzle_lala().can_navigate_next ? '' : ' disabled')} data-icon=""/>
                     </div>
                     <div class='replay-tools'>
+                        <Show when={i_chapter_index() !== undefined} fallback={
+                            <div class='info'>
+                               <Show when={in_run()} fallback={
+                                <>
+                                 <span> There are no {puzzle_title()} Puzzles </span>
+                                 <button onClick={() => set_filter_and_change_i('') }>Go back to Run</button>
+                                </>
+                               }>
+                                <>
+                                 <span> You've finished a Run. </span>
+
+                                 <div class='end-stats'>
+                                     <div class='out'>
+                                       <span onClick={() => set_filter_and_change_i('solved')} class='solved'>Solved: {current_run().solved.length}/{get_attempted_for_run(current_run())}</span>
+                                       <span onClick={() => set_filter_and_change_i('failed')} class='failed'>Failed: {current_run().failed.length}/{get_attempted_for_run(current_run())}</span>
+                                       <span onClick={() => set_filter_and_change_i('skipped')} class='skipped'>Skipped: {current_run().skipped.length}/{get_attempted_for_run(current_run())} </span>
+                                     </div>
+                                     <span>Time Spent: {format_ms_time(current_run().elapsed_ms)} </span>
+                                 </div>
+ 
+
+                                <Show when={!waiting_new_run()}>
+                                   <button onClick={() => start_a_new_run() }>Start a New Run</button>
+
+                                </Show>
+                                </>
+                               </Show>
+                            </div>
+                        }>
+
                         <Show when={puzzle_lala().is_revealed} fallback={
                             <>
                                 <div class='info'>
@@ -384,6 +437,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                                     <span onClick={() => on_next_puzzle()} class='link'>Continue with next puzzle.</span>
                                 </Show>
                             </>
+                        </Show>
                         </Show>
                     </div>
                 </div>

@@ -172,28 +172,7 @@ class _UserSetRunStore {
 
         let res = this.get_active_run_for_user(username)
         if (!res) {
-
-            let config = await this.get_or_create_active_config_for_user(username)
-            let set_id = config.active_set
-
-            let study = await StudyRepo.get_study_by_id(set_id)
-            let total = study.chapters.length
-
-            
-            let runs = this.get_runs_for_user(username, set_id)
-
-            res = {
-                id: gen_run_id(),
-                no: runs.length + 1,
-                set_id,
-                username,
-                solved: [],
-                failed: [],
-                skipped: [],
-                elapsed_ms: 0,
-                total
-            }
-            this._save_run(res)
+            res = await this.start_new_run(username)
         }
         return res
     }
@@ -211,6 +190,30 @@ class _UserSetRunStore {
         this.user_run_list = l
     }
 
+    async start_new_run(username: string) {
+        let config = await this.get_or_create_active_config_for_user(username)
+        let set_id = config.active_set
+
+        let study = await StudyRepo.get_study_by_id(set_id)
+        let total = study.chapters.length
+
+        
+        let runs = this.get_runs_for_user(username, set_id)
+
+        let res = {
+            id: gen_run_id(),
+            no: runs.length + 1,
+            set_id,
+            username,
+            solved: [],
+            failed: [],
+            skipped: [],
+            elapsed_ms: 0,
+            total
+        }
+        this._save_run(res)
+        return res
+    }
 
     _save_run(run: UserRun) {
         let l = this.user_run_list

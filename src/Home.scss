@@ -228,9 +228,58 @@
                 display: flex;
                 flex-flow: column;
                 text-align: left;
+                gap: 0.4em;
 
                 .turn {
                     text-transform: capitalize;
+                }
+
+                .end-stats {
+                    display: flex;
+                    flex-flow: column;
+                    gap: 0.4em;
+                    margin-left: 1em;
+                    padding: 0.5em;
+
+                    .out {
+                        display: flex;
+                        gap: 0.5em;
+
+                        user-select: none;
+                        cursor: pointer;
+    
+                        .solved {
+                            color: $success;
+                        }
+    
+                        .failed {
+                            color: $error;
+                        }
+    
+                        .skipped {
+                            color: $accent;
+                        }
+
+                    }
+                }
+
+
+                button {
+                    user-select: none;
+                    cursor: pointer;
+                    padding: 0.5em;
+                    border: none; 
+                    background: $primary;
+                    color: $text;
+
+                    &:hover {
+                        background: $primary-light;
+                        color: $dark-text;
+                    }
+
+                    &:active {
+                        text-decoration: underline;
+                    }
                 }
             }
 

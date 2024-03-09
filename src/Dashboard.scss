@@ -223,6 +223,8 @@
 
     .stats .progress {
         .progress-bar {
+            margin: auto 0;
+            height: 30px;
             border-radius: 2px;
             flex: 1;
             background: $text;

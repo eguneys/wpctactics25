@@ -43,9 +43,10 @@ export type StudyInConfig = {
 const parse_config = (_: string): StudyInConfig[] => {
   return _.split('\n').map(_ => {
 
-    let m = _.match(/(\w*) "([^"]*)"/)!
+    let m = _.match(/(\w*)\s*"([^"]*)"/)!
 
     let [__, id, name] = m
+    console.log('id', id, 'name',  name)
 
     return { id, name }
   })
