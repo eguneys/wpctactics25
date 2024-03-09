@@ -1,3 +1,4 @@
 u1600 "Tactics U1600"
 u2000 "Tactics U2000"
 u2200 "Tactics U2200"
+u2    "Tactics U2"
