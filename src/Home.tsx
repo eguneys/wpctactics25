@@ -272,7 +272,14 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         el_sixth.removeEventListener('wheel', onWheel)
     })
 
-    const turn_to_play = createMemo(() => opposite(puzzle_lala().initial_color!))
+    const turn_to_play = createMemo(() => {
+        let res = puzzle_lala().initial_color!
+        if (hide_first()) {
+            return res
+        } else {
+            return opposite(res)
+        }
+    })
 
 
     const puzzle_span_klass_for = (i: number) => {
