@@ -2,6 +2,7 @@ import { Pgn } from "./chess_pgn_logic"
 
 export type PGNStudy = {
     name: string,
+    hide_first?: boolean,
     chapters: PGNChapter[]
 }
 
@@ -38,17 +39,17 @@ const read_study_pgn = (id: string, study_name: string) =>
 export type StudyInConfig = {
   id: string,
   name: string,
+  hide_first?: string
 }
 
 const parse_config = (_: string): StudyInConfig[] => {
   return _.split('\n').map(_ => {
 
-    let m = _.match(/(\w*)\s*"([^"]*)"/)!
+    let m = _.match(/(\w*)\s*"([^"]*)"\s*(\w*)?/)!
 
-    let [__, id, name] = m
-    console.log('id', id, 'name',  name)
+    let [__, id, name, hide_first] = m
 
-    return { id, name }
+    return { id, name, hide_first }
   })
 }
 
@@ -75,9 +76,10 @@ class StudyRepo {
 
     if (!this.cache.get(id)) {
 
-      let { name } = this.config!.find(_ => _.id === id)!
+      let { name, hide_first } = this.config!.find(_ => _.id === id)!
 
       let study = await read_study_pgn(id, name)
+      study.hide_first = hide_first !== undefined
       this.cache.set(id, study)
     }
 

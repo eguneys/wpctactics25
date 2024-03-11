@@ -15,7 +15,8 @@
             'board'
             'gauge'
             'replay'
-            'side';
+            'side'
+            'under';
         gap: 0.5em;
         grid-template-rows: fit-content(0);
 
@@ -23,13 +24,15 @@
        @media (min-width: 799px) {
            grid-template-areas:
            'board gauge replay'
-           'side side side';
+           'side side side'
+           'under under under';
            grid-template-columns: min(82vw, 82vh) 10px minmax(240px, 400px);
        }
 
        @media (min-width: 1259px) {
         grid-template-areas:
-        'side board gauge replay';
+        'side board gauge replay'
+        '. under . .';
 
         grid-template-columns: 1fr min(82vw, 82vh) 10px minmax(240px, 400px);
        }
@@ -48,6 +51,10 @@
         .home .header {
             flex-direction: column;
         }
+    }
+
+    .under {
+        grid-area: under;
     }
 
     .board-wrap {
@@ -105,61 +112,6 @@
         }
 
 
-        .side-list {
-            display: flex;
-            flex-flow: row wrap-reverse;
-
-            @media (min-width: 1259px) {
-                max-width: 241px;
-            }
-
-            span {
-
-                display: flex;
-                flex-flow: row wrap;
-                align-items: center;
-                border-radius: 3px;
-
-                user-select: none;
-                cursor: pointer;
-                flex: 0 0 2.3em;
-                height: 1.6em;
-                margin: 0.4em 0.5em 0 0;
-                color: $text;
-                background: #383838;
-                opacity: .55;
-                font-size: .85em;
-                font-weight: bold;
-                justify-content: center;
-
-                &.current,
-                &.failed,
-                &.solved,
-                &.skipped {
-                    opacity: 0.86;
-                }
-
-                &.current {
-                    background: $primary;
-                }
-
-                &.failed {
-                    background: $error;
-                }
-
-                &.solved {
-                    background: $success;
-                }
-
-                &.skipped {
-                    background: #c9c145;
-                }
-
-                &.filtered {
-                    box-shadow: 1px 2px $accent, inset 1px 1px $accent;
-                }
-            }
-        }
     }
 
 .side .side-header,
@@ -337,6 +289,61 @@
     .show-dropdown select {
         cursor: pointer;
     }
+}
+
+
+.under {
+
+        .side-list {
+            display: flex;
+            flex-flow: row wrap-reverse;
+            span {
+
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+                border-radius: 3px;
+
+                user-select: none;
+                cursor: pointer;
+                flex: 0 0 2.3em;
+                height: 1.6em;
+                margin: 0.4em 0.5em 0 0;
+                color: $text;
+                background: #383838;
+                opacity: .55;
+                font-size: .85em;
+                font-weight: bold;
+                justify-content: center;
+
+                &.current,
+                &.failed,
+                &.solved,
+                &.skipped {
+                    opacity: 0.86;
+                }
+
+                &.current {
+                    background: $primary;
+                }
+
+                &.failed {
+                    background: $error;
+                }
+
+                &.solved {
+                    background: $success;
+                }
+
+                &.skipped {
+                    background: #c9c145;
+                }
+
+                &.filtered {
+                    box-shadow: 1px 2px $accent, inset 1px 1px $accent;
+                }
+            }
+        }
 }
 
 }

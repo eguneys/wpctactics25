@@ -121,8 +121,8 @@ class _UserSetRunStore {
         return this.user_run_list.filter(_ => _.username === username && _.set_id === set_id)
     }
 
-    get_active_run_for_user(username: string) {
-        let cc = this.user_active_config_list.find(_ => _.username === username)
+    async get_active_run_for_user(username: string) {
+        let cc = await this.get_or_create_active_config_for_user(username)
 
         let ll = this.user_run_list.filter(_ => _.username === username && (!cc || _.set_id === cc.active_set))
 
@@ -138,7 +138,7 @@ class _UserSetRunStore {
     set_active_config_for_user(username: string, set_id: string) {
         let ll = this.user_active_config_list
 
-        let c = ll.find(_ => _.username)
+        let c = ll.find(_ => _.username === username)
 
         if (!c) {
             let res = { username, active_set: set_id }
@@ -170,7 +170,7 @@ class _UserSetRunStore {
 
     async get_or_create_active_run_for_user(username: string) {
 
-        let res = this.get_active_run_for_user(username)
+        let res = await this.get_active_run_for_user(username)
         if (!res) {
             res = await this.start_new_run(username)
         }

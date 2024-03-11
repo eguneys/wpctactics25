@@ -43,6 +43,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const [current_run, set_current_run] = createSignal(props.run, { equals: false })
     const pgn = () => props.pgn
 
+    const hide_first = () => pgn().hide_first
+
     let tick_interval: number
     const [elapsed_ms, set_elapsed_ms] = createSignal(0)
 
@@ -91,6 +93,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
         let res = Treelala2.make(chapter.pgn.tree)
 
+        if (hide_first()) {
+            res._hidden_paths.add_path(res.tree!.root.data.path)
+        }
       res.tree!.root.children.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
         shalala.on_set_fen_uci(res.initial_fen)
 
@@ -98,7 +103,11 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         set_elapsed_ms(0)
 
       setTimeout(() => {
-        res.cursor_path = res.tree!.root.data.path
+        if (hide_first()) {
+          res.cursor_path = []
+        } else {
+          res.cursor_path = res.tree!.root.data.path
+        }
         set_is_view_solution(true)
 
         clearInterval(tick_interval)
@@ -464,6 +473,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class='under'>
                 <div class='side-list'>
                     <For each={all_puzzles()}>{i => 
                       <span class={puzzle_span_klass_for(i)} onClick={() => { set_filter_for_index(i); set_i_chapter_index(i) }}>{i+1}</span> 
