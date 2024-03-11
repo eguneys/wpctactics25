@@ -91,7 +91,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
     const shalala = new Shala()
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
-        let res = Treelala2.make(chapter.pgn.tree)
+        let res = Treelala2.make(chapter.pgn.tree.clone)
 
         if (hide_first()) {
             res._hidden_paths.add_path(res.tree!.root.data.path)
@@ -197,11 +197,11 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     })
 
 
-    let reveal_result = createMemo(() => {
+    let reveal_result = createMemo(on(() => puzzle_lala().is_revealed, (is_revealed) => {
         if (!in_run()) {
             return 'not_in_run'
         }
-        if (puzzle_lala().is_revealed) {
+        if (is_revealed) {
             let failed = puzzle_lala().failed_paths_expanded.length > 0
             let revealed = puzzle_lala().revealed_paths_expanded.length > 0
 
@@ -215,7 +215,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             }
         }
         return 'thinking'
-    })
+    }))
 
 
     createEffect(on(reveal_result, r => {
