@@ -3,7 +3,7 @@ import { Chess, Position, makeUci, parseUci } from 'chessops'
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen'
 import { PgnNodeData, ChildNode, parsePgn } from 'chessops/pgn'
 import { makeSan, parseSan } from 'chessops/san'
-import { Signal, createSignal, untrack } from 'solid-js'
+import { Signal, createSignal } from 'solid-js'
 
 export { INITIAL_FEN } from 'chessops/fen'
 
@@ -91,7 +91,7 @@ export type PgnHeaders = {
 
 export class TreeNode<V> {
 
-    static color_of(_: TreeNode<MoveData>) {
+    static before_color_of(_: TreeNode<MoveData>) {
         return parseFen(_.data.before_fen).unwrap().turn
     }
 
@@ -167,74 +167,6 @@ export type MoveScoreData = {
 }
 
 
-export class MoveScoreTree {
-
-    static make = (tree: MoveTree) => {
-
-        function score_node(node: TreeNode<MoveData>, i: number) {
-
-            let l = node.length
-            let v = node.nb_first_variations
-            
-            let score = i * (l / 2) * (v + 1)
-            let res = TreeNode.make({ path: node.data.path, uci: node.data.uci, score })
-
-            let n = node.children.length
-            let s = n * (n + 1) / 2
-            res.children = node.children.map((_, i) => score_node(_, (n - i) / s))
-
-            return res
-        }
-
-        function calc_score(node: TreeNode<MoveScoreData>): number {
-            let score = node.data.score
-
-            return score + node.children.map(_ => calc_score(_))
-            .reduce((a, b) => a + b, 0)
-        }
-
-        function normalize(node: TreeNode<MoveScoreData>, total: number) {
-            node.data.score /= total
-            node.children.forEach(_ => normalize(_, total))
-        }
-
-        let res = score_node(tree.root, 1)
-
-        let total = calc_score(res)
-
-        normalize(res, total)
-
-        return new MoveScoreTree(res)
-    }
-
-    constructor(readonly root: TreeNode<MoveScoreData>) {}
-
-
-
-    _traverse_path(path: string[]) {
-
-        let res = undefined
-        let i = [this.root]
-        for (let p of path) {
-            res = i.find(_ => _.data.uci === p)!
-            i = res?.children || this.root
-        }
-        return res
-    }
-
-    get_children(path: string[]) {
-        let i = this._traverse_path(path)
-        return i?.children.map(_ => _.data)
-    }
-
-    get_at(path: string[]) {
-        let i = this._traverse_path(path)
-        return i?.data
-    }
-
-
-}
-
 export type MoveData = {
     path: string[],
     before_fen: string,
@@ -248,21 +180,33 @@ export type MoveData = {
 export class MoveTree {
 
     static make = (before_fen: string, ucis: string[]) => {
-        let uci = ucis[0]
-        let rest = ucis.slice(1)
-        let res = new MoveTree(TreeNode.make(MoveTree.make_data(before_fen, uci, 1, [])))
-        res.append_ucis(rest)
+        let res = new MoveTree(before_fen, [])
+        res.append_ucis(ucis)
         return res
     }
 
     get initial_color() {
-        return TreeNode.color_of(this.root)
+        return TreeNode.before_color_of(this.root[0])
     }
 
     get clone() {
-        return new MoveTree(this.root.clone)
+        return new MoveTree(this.before_fen, this.root.map(_ => _.clone))
     }
-    constructor(public root: TreeNode<MoveData>) {}
+
+
+    _root: Signal<TreeNode<MoveData>[]>
+
+    get root() {
+        return this._root[0]()
+    }
+
+    set root(_: TreeNode<MoveData>[]) {
+        this._root[1](_)
+    }
+
+    constructor(readonly before_fen: string, root: TreeNode<MoveData>[]) {
+        this._root = createSignal(root, { equals: false })
+    }
 
     static make_data(before_fen: string, uci: string, ply: number, path: string[]) {
         let setup = parseFen(before_fen).unwrap()
@@ -283,7 +227,7 @@ export class MoveTree {
     _traverse_path(path: string[]) {
 
         let res = undefined
-        let i = [this.root]
+        let i = this.root
         for (let p of path) {
             res = i.find(_ => _.data.uci === p)!
             i = res?.children || this.root
@@ -291,11 +235,11 @@ export class MoveTree {
         return res
     }
 
-    _find_path(ucis: string[]): [string[], TreeNode<MoveData>, string[]] {
+    _find_path(ucis: string[]): [string[], TreeNode<MoveData> | undefined, string[]] | undefined {
         let path = []
         let rest = []
-        let res = this.root
-        let i = [res]
+        let res: TreeNode<MoveData> | undefined
+        let i = this.root
         let split = false
         for (let p of ucis) {
 
@@ -309,7 +253,7 @@ export class MoveTree {
                 } else {
                     path.push(p)
                     res = i_res
-                    i = untrack(() => res.children)
+                    i = res!.children
                 }
             }
         }
@@ -332,13 +276,24 @@ export class MoveTree {
     }
 
     append_ucis(ucis: string[]) {
-        let [path, i, rest] = this._find_path(ucis)
-        for (let uci of rest) {
+        let [path, i, rest] = this._find_path(ucis)!
+        if (!i) {
+            let uci = rest[0]
             let child = TreeNode.make(
-                MoveTree.make_data(i.data.after_fen, uci, i.data.ply + 1, path)
+                MoveTree.make_data(this.before_fen, uci, 1, path)
             )
-            let i_children = untrack(() => i.children)
-            i.children = [...i_children, child]
+            this.root.push(child)
+            this.root = this.root
+
+            rest = rest.slice(1)
+        }
+
+        for (let uci of rest) {
+            let child: TreeNode<MoveData> = TreeNode.make(
+                MoveTree.make_data(i!.data.after_fen, uci, i!.data.ply + 1, path)
+            )
+            let i_children = i!.children
+            i!.children = [...i_children, child]
             i = child
             path = [...path, uci]
         }

@@ -94,9 +94,10 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         let res = Treelala2.make(chapter.pgn.tree.clone)
 
         if (hide_first()) {
-            res._hidden_paths.add_path(res.tree!.root.data.path)
+          res.tree!.root.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
+        } else {
+          res.tree!.root[0].children.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
         }
-      res.tree!.root.children.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
         shalala.on_set_fen_uci(res.initial_fen)
 
         set_is_view_solution(false)
@@ -106,7 +107,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         if (hide_first()) {
           res.cursor_path = []
         } else {
-          res.cursor_path = res.tree!.root.data.path
+          res.cursor_path = res.tree!.root[0].data.path
         }
         set_is_view_solution(true)
 
@@ -116,7 +117,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
       return res
     }))
-
 
     createEffect(on(in_run, (v) => {
         set_elapsed_ms(0)
@@ -151,14 +151,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         } else {
             shalala.on_set_fen_uci(puzzle_lala().initial_fen)
         }
-    }))
-
-    createEffect(on(() => puzzle_lala().tree?.get_at(puzzle_lala().cursor_path), (v) => {
-
-        if (v) {
-            Player.move(v)
-        }
-
     }))
 
     const on_next_puzzle = () => {
@@ -240,6 +232,13 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         set_current_run(run)
     }))
 
+    createEffect(on(() => puzzle_lala().tree?.get_at(puzzle_lala().cursor_path), (v) => {
+        console.log(v)
+        if (v) {
+            Player.move(v)
+        }
+    }))
+
     createEffect(on(() => shalala.on_wheel, (dir) => {
         if (is_pending()) {
             return
@@ -275,6 +274,17 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const turn_to_play = createMemo(() => {
         let res = puzzle_lala().initial_color!
         if (hide_first()) {
+            return res
+        } else {
+            return opposite(res)
+        }
+    })
+
+    const turn_to_orientation = createMemo(() => {
+        let res = puzzle_lala().initial_color ?? 'white'
+
+        if (hide_first()) {
+
             return res
         } else {
             return opposite(res)
@@ -359,7 +369,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
             <div class='board-wrap'>
                 <Chessboard
-                    orientation={opposite(puzzle_lala().initial_color ?? 'white')}
+                    orientation={turn_to_orientation()}
                     movable={i_chapter_index() !== undefined && !is_pending() && !puzzle_lala().is_revealed && puzzle_lala().is_next_hidden_cursor_path}
                     doPromotion={shalala.promotion}
                     onMoveAfter={shalala.on_move_after}
