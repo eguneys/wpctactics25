@@ -26,7 +26,7 @@
            'board gauge replay'
            'side side side'
            'under under under';
-           grid-template-columns: min(82vw, 82vh) 10px minmax(240px, 400px);
+           grid-template-columns: min(62vw, 62vh) 10px minmax(240px, 350px);
        }
 
        @media (min-width: 1259px) {
@@ -34,7 +34,7 @@
         'side board gauge replay'
         '. under . .';
 
-        grid-template-columns: 1fr min(82vw, 82vh) 10px minmax(240px, 400px);
+        grid-template-columns: minmax(250px, 300px) min(82vw, 82vh) 10px minmax(240px, 350px);
        }
 
     }
@@ -76,10 +76,10 @@
 
         grid-template-rows: repeat(3, fit-content(0));
 
-        @media (min-width: 1259px) {
+        @media (max-width: 420px) or (min-width: 790px) {
             grid-template-areas: 'header'
             'tools'
-            'list'
+            'list';
         }
 
         .side-header {
