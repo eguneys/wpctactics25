@@ -14,7 +14,7 @@ export type PGNChapter = {
 
 const reformatStudyPGN = (pgns: string, study_name: string): PGNStudy => {
     let chapters = Pgn.make_many(pgns).map(pgn => {
-        let site = pgn.puzzle && `https://lichess.org/tactics/${pgn.puzzle}`
+        let site = pgn.puzzle && `https://lichess.org/training/${pgn.puzzle}`
 
         return {
             site,

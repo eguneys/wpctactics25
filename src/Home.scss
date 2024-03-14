@@ -134,6 +134,16 @@
         .replay-header {
             display: flex;
             justify-content: space-between;
+
+
+            span > a {
+                color: rgba(49, 70, 111, 0.653);
+
+                &:hover {
+                    color: $dark-text;
+                }
+            }
+
         }
 
         .replay-header,

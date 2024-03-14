@@ -10,6 +10,11 @@ import ProfileStore, { UserRun, UserSetRunStore, get_attempted_for_run } from '.
 import { format_ms_time } from './util'
 import SessionStore from './session_store'
 
+const analyze_lichess_fen_link = (fen: string) => {
+    fen = fen.replace(' ', '_')
+    return `https://lichess.org/analysis/${fen}`
+}
+
 const Home = () => {
 
     let username = ProfileStore.active_user ?? ProfileStore.anonymous_user
@@ -88,6 +93,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     let f_p = filtered_puzzles()
     const [i_chapter_index, set_i_chapter_index] = createSignal<number | undefined>(f_p ? f_p[0] : unattempted_puzzles()[0])
     const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index() ?? 0])
+
+    const lichess_link = () => selected_chapter().site ?? analyze_lichess_fen_link(selected_chapter().pgn.tree.before_fen)
 
     const shalala = new Shala()
     const puzzle_lala = createMemo(on(selected_chapter, (chapter) => {
@@ -404,7 +411,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                             <span>#{i_chapter_index()! + 1}</span>
                             <span>{puzzle_title()} Puzzles</span>
                         </Show>
-                        <span>lichess</span>
+                        <span><a href={lichess_link()}>lichess</a></span>
                     </div>
                     <div class='replay-v'>
                         <Chesstree2 lala={puzzle_lala()}/>
