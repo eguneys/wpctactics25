@@ -95,6 +95,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
         if (hide_first()) {
           res.tree!.root.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
+          console.log('hide first', res.hidden_paths)
         } else {
           res.tree!.root[0].children.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
         }
@@ -117,6 +118,10 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
       return res
     }))
+
+    createEffect(() => {
+        console.log('hh', puzzle_lala().hidden_paths)
+    })
 
     createEffect(on(in_run, (v) => {
         set_elapsed_ms(0)
@@ -179,6 +184,12 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         puzzle_lala().reveal_hidden_paths()
     }
 
+    createEffect(on(() => puzzle_lala().is_revealed, (v) => {
+        if (v) {
+            puzzle_lala().reveal_hidden_paths()
+        }
+    }))
+
     createEffect(() => {
         if (puzzle_lala().is_revealed && is_jump_to_next_puzzle_immediately()) {
 
@@ -197,6 +208,12 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             let failed = puzzle_lala().failed_paths_expanded.length > 0
             let revealed = puzzle_lala().revealed_paths_expanded.length > 0
 
+            let last_solved = puzzle_lala().solved_paths_expanded.pop()
+            if (last_solved) {
+                if (puzzle_lala().tree?.get_children(last_solved)?.length === 0) {
+                    return 'solved'
+                }
+            }
 
             if (failed) {
                 return 'failed'
@@ -233,7 +250,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     }))
 
     createEffect(on(() => puzzle_lala().tree?.get_at(puzzle_lala().cursor_path), (v) => {
-        console.log(v)
         if (v) {
             Player.move(v)
         }

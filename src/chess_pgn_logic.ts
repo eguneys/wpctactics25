@@ -107,6 +107,12 @@ export class TreeNode<V> {
         return res
     }
 
+    get mainline_only() {
+        let res = new TreeNode({ ... this.data })
+        res.children = this.children.slice(0, 1).map(_ => _.mainline_only)
+        return res
+    }
+
     get length() {
 
         if (this.children.length > 1) {
@@ -192,6 +198,11 @@ export class MoveTree {
     get clone() {
         return new MoveTree(this.before_fen, this.root.map(_ => _.clone))
     }
+
+    get mainline_only() {
+        return new MoveTree(this.before_fen, this.root.slice(0, 1).map(_ => _.mainline_only))
+    }
+
 
 
     _root: Signal<TreeNode<MoveData>[]>

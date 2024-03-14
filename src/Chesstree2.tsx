@@ -267,7 +267,20 @@ export class Treelala2 {
   }
 
   get is_revealed() {
-    return this.hidden_paths.length === 0
+    //return this.hidden_paths.length === 0
+
+    let r = this.revealed_paths_expanded.pop()
+    if (!r) {
+      let l = this.solved_paths_expanded.pop()
+  
+      if (!l) {
+        return false
+      }
+  
+      return this.tree?.get_children(l)?.length === 0
+    }
+    return true
+
   }
 
   reveal_hidden_paths = () => {
@@ -580,16 +593,16 @@ const RenderData = (props: { on_set_path: (_: string[]) => void,
     let on_path = createMemo(() => props.cursor_path.join('').startsWith(props.data.path.join('')))
     let on_path_end = createMemo(() => props.cursor_path.join('') === props.data.path.join(''))
 
-    let my_path = props.data.path.join('')
-    let on_hidden_path_start = createMemo(() => props.hidden_paths.find(_ => _.join('') === my_path)!)
-    let on_hidden_path_rest = createMemo(() => props.hidden_paths.find(_ => my_path.startsWith(_.join('')))!)
+    let my_path = createMemo(() => props.data.path.join(''))
+    let on_hidden_path_start = createMemo(() => props.hidden_paths.find(_ => _.join('') === my_path())!)
+    let on_hidden_path_rest = createMemo(() => props.hidden_paths.find(_ => my_path().startsWith(_.join('')))!)
 
-    let on_revealed_path_start = createMemo(() => props.revealed_paths.find(_ => _.join('') === my_path)!)
-    let on_revealed_path_rest = createMemo(() => props.revealed_paths.find(_ => my_path.startsWith(_.join('')))!)
+    let on_revealed_path_start = createMemo(() => props.revealed_paths.find(_ => _.join('') === my_path())!)
+    let on_revealed_path_rest = createMemo(() => props.revealed_paths.find(_ => my_path().startsWith(_.join('')))!)
 
-    let on_failed_path = createMemo(() => props.failed_paths.find(_ => _.join('') === my_path)!)
+    let on_failed_path = createMemo(() => props.failed_paths.find(_ => _.join('') === my_path())!)
 
-    let on_solved_path = createMemo(() => props.solved_paths.find(_ => _.join('') === my_path)!)
+    let on_solved_path = createMemo(() => props.solved_paths.find(_ => _.join('') === my_path())!)
 
     let move_on_path_klass = createMemo(() => ['move', 
     on_path_end()?'on_path_end':on_path()?'on_path':'',

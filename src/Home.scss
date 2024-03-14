@@ -26,7 +26,7 @@
            'board gauge replay'
            'side side side'
            'under under under';
-           grid-template-columns: min(62vw, 62vh) 10px minmax(240px, 350px);
+           grid-template-columns: min(62vw, 62vh) 2px minmax(240px, 380px);
        }
 
        @media (min-width: 1259px) {
@@ -34,7 +34,7 @@
         'side board gauge replay'
         '. under . .';
 
-        grid-template-columns: minmax(250px, 300px) min(82vw, 82vh) 10px minmax(240px, 350px);
+        grid-template-columns: minmax(250px, 250px) min(82vw, 82vh) 2px minmax(240px, 380px);
        }
 
     }
