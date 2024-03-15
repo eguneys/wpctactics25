@@ -292,6 +292,23 @@ export class Treelala2 {
     })
   }
 
+  reveal_from_mainline = () => {
+    if (!this.tree) {
+      return false
+    }
+
+    let cc = this.tree?._traverse_path(this.cursor_path)?.children ?? this.tree.root
+
+    const c_found = cc[0]
+    if (c_found) {
+      batch(() => {
+        this._hidden_paths.remove_path(c_found.data.path)
+        c_found.children.forEach(_ => this._hidden_paths.add_path(_.data.path))
+        this.cursor_path = c_found.data.path
+      })
+      return c_found.data.uci
+    }
+  }
 
   reveal_one_random = () => {
 
@@ -568,8 +585,9 @@ const RenderLines = (props: {
           <RenderLines  {...props} lines={props.lines[0].children} />
         </Match>
         <Match when={props.lines.length > 1}>
+          <RenderLines {...props} lines={props.lines.slice(0, 1)}/>
           <div class='lines'>
-              <For each={props.lines}>{ child =>
+              <For each={props.lines.slice(1)}>{ child =>
                 <div class='line'><RenderLines {...props} lines={[child]} show_index={true}/></div>
               }</For>
           </div>

@@ -149,7 +149,8 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         if (success) {
             set_is_pending(true)
             setTimeout(() => {
-                puzzle_lala().reveal_one_random()
+                //puzzle_lala().reveal_one_random()
+                puzzle_lala().reveal_from_mainline()
                 set_is_pending(false)
             }, 600)
         }

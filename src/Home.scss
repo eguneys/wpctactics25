@@ -34,7 +34,7 @@
         'side board gauge replay'
         '. under . .';
 
-        grid-template-columns: minmax(250px, 250px) min(82vw, 82vh) 2px minmax(240px, 380px);
+        grid-template-columns: minmax(250px, 300px) min(82vw, 82vh) 2px minmax(230px, 300px);
        }
 
     }
@@ -306,7 +306,7 @@
 
         .side-list {
             display: flex;
-            flex-flow: row wrap-reverse;
+            flex-flow: row wrap;
             span {
 
                 display: flex;
