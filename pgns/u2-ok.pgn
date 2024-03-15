@@ -1,3 +1,7 @@
+[FEN "5r1k/5qp1/2R4p/2P5/1p1QB3/1P2P1P1/3R2KP/5r2 b - - 0 2"]
+
+2...Rg1+ $19 2.Kxg1 (2.Kh3 Qh5# ) 3...Qf1# 0-1
+
 [Puzzle "FiQ3g"]
 [FEN "1k5r/1pr2p2/Q1p3pp/2qp4/1R6/2P1P1P1/3K1PP1/7R w - - 0 31"]
 
@@ -7,7 +11,3 @@
 [FEN "3Q1b1k/pp5p/8/4P1p1/2B5/1P3q2/P6P/6K1 w - - 3 30"]
 
 30. Bd5 Kg7 31. Qxg5+ Kh8 32. Qg8# *
-
-[FEN "5r1k/5qp1/2R4p/2P5/1p1QB3/1P2P1P1/3R2KP/5r2 b - - 0 2"]
-
-2...Rg1+ $19 2.Kxg1 (2.Kh3 Qh5# ) 3...Qf1# 0-1
