@@ -49,7 +49,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const pgn = () => props.pgn
 
     const hide_first = () => pgn().hide_first
+    const random_line = () => pgn().random_line
 
+    console.log(hide_first(), random_line())
     let tick_interval: number
     const [elapsed_ms, set_elapsed_ms] = createSignal(0)
 
@@ -102,7 +104,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
         if (hide_first()) {
           res.tree!.root.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
-          console.log('hide first', res.hidden_paths)
         } else {
           res.tree!.root[0].children.map(_ => _.data.path).forEach(_ => res._hidden_paths.add_path(_))
         }
@@ -126,10 +127,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
       return res
     }))
 
-    createEffect(() => {
-        console.log('hh', puzzle_lala().hidden_paths)
-    })
-
     createEffect(on(in_run, (v) => {
         set_elapsed_ms(0)
         clearInterval(tick_interval)
@@ -149,8 +146,11 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         if (success) {
             set_is_pending(true)
             setTimeout(() => {
-                //puzzle_lala().reveal_one_random()
-                puzzle_lala().reveal_from_mainline()
+                if (random_line()) {
+                  puzzle_lala().reveal_one_random()
+                } else {
+                  puzzle_lala().reveal_from_mainline()
+                }
                 set_is_pending(false)
             }, 600)
         }
@@ -216,6 +216,10 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             let failed = puzzle_lala().failed_paths_expanded.length > 0
             let revealed = puzzle_lala().revealed_paths_expanded.length > 0
 
+            if (failed) {
+                return 'failed'
+            } 
+
             let last_solved = puzzle_lala().solved_paths_expanded.pop()
             if (last_solved) {
                 if (puzzle_lala().tree?.get_children(last_solved)?.length === 0) {
@@ -223,9 +227,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                 }
             }
 
-            if (failed) {
-                return 'failed'
-            } else if (revealed) {
+            if (revealed) {
                 return 'revealed'
             } else {
                 return 'solved'
@@ -234,6 +236,9 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         return 'thinking'
     }))
 
+    createEffect(() => {
+        console.log(reveal_result())
+    })
 
     createEffect(on(reveal_result, r => {
 

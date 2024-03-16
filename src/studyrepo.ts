@@ -3,6 +3,7 @@ import { Pgn } from "./chess_pgn_logic"
 export type PGNStudy = {
     name: string,
     hide_first?: boolean,
+    random_line?: boolean,
     chapters: PGNChapter[]
 }
 
@@ -39,17 +40,23 @@ const read_study_pgn = (id: string, study_name: string) =>
 export type StudyInConfig = {
   id: string,
   name: string,
-  hide_first?: string
+  hide_first?: boolean,
+  random_line?: boolean
 }
 
 const parse_config = (_: string): StudyInConfig[] => {
   return _.split('\n').map(_ => {
 
-    let m = _.match(/([^\s]*)\s*"([^"]*)"\s*(\w*)?/)!
+    let m = _.match(/([^\s]*)\s*"([^"]*)"\s*(.*)$/)!
 
-    let [__, id, name, hide_first] = m
+    let [__, id, name, os] = m
 
-    return { id, name, hide_first }
+    let options = os.trim().split(' ')
+
+    let hide_first = options.includes('hide_first_move')
+    let random_line = options.includes('random_line')
+
+    return { id, name, hide_first, random_line }
   })
 }
 
@@ -76,10 +83,11 @@ class StudyRepo {
 
     if (!this.cache.get(id)) {
 
-      let { name, hide_first } = this.config!.find(_ => _.id === id)!
+      let { name, hide_first, random_line } = this.config!.find(_ => _.id === id)!
 
       let study = await read_study_pgn(id, name)
-      study.hide_first = hide_first !== undefined
+      study.hide_first = hide_first
+      study.random_line = random_line
       this.cache.set(id, study)
     }
 
