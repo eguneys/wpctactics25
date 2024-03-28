@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, batch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount } from 'solid-js'
+import { For, Match, Show, Switch, batch, createEffect, createMemo, createResource, createSignal, on, onCleanup, onMount, untrack } from 'solid-js'
 import Chessboard from './Chessboard'
 import Chesstree2, { Treelala2 } from './Chesstree2'
 import './Home.scss'

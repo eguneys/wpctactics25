@@ -2,169 +2,81 @@ import './tree.css'
 import { For, Match, Show, Signal, Switch, batch, createEffect, createMemo, createSignal, untrack } from 'solid-js'
 import { INITIAL_FEN, MoveData, MoveTree, TreeNode } from './chess_pgn_logic'
 
-export const _alekhine = `
-[Event "e4 vs Minor Defences: Alekhine"]
-[Site "https://lichess.org/study/F8wyMEli/XtCmR5GS"]
-[Result "*"]
-[UTCDate "2023.04.06"]
-[UTCTime "17:47:58"]
-[Variant "Standard"]
-[ECO "B04"]
-[Opening "Alekhine Defense: Modern Variation, Larsen-Haakert Variation"]
-[Annotator "https://lichess.org/@/heroku"]
+export class TwoPaths2 {
 
-1. e4 Nf6 2. e5 Nd5 3. d4 d6 4. Nf3 Nc6 (4... Nb6 5. a4 a5 6. Nc3 g6 (6... Bf5 7. d5 e6 8. dxe6 Bxe6 9. Bg5 Qd7 10. exd6 Bxd6 11. Nb5 Nd5 12. Nxd6+ Qxd6) 7. exd6 cxd6 (7... exd6 8. Bg5 f6 9. Bf4 d5 10. Bd3 Bd6 11. Bxd6 Qxd6 12. O-O O-O 13. Qd2) 8. d5 Bg7 9. Be3 O-O 10. Bd4 N8d7 11. Bxg7 Kxg7 12. Qd4+ Nf6 13. Nd2 Bd7 14. Nde4 Rc8 15. h4 h5 16. f3) (4... c6 5. Be2 g6 6. c4 Nc7 7. exd6 Qxd6 8. Nc3 Bg7 9. O-O O-O 10. h3 Ne6 11. Be3 Nf4 12. Re1) (4... Bf5 5. Bd3 Bxd3 6. Qxd3 e6 7. O-O Nc6 8. c4 Nb6 9. exd6 cxd6 10. Nc3 Be7 11. d5 Nb4 12. Qe4 e5 13. c5 dxc5 14. a3 Na6 15. Rd1 O-O) 5. c4 Nb6 6. e6 fxe6 7. Nc3 g6 8. h4 Bg7 9. Be3 e5 10. d5 Nd4 11. Nxd4 exd4 12. Bxd4 Bxd4 13. Qxd4 e5 14. Qe3 *
-`
-
-export class TwoPaths {
-
-  replace_all(paths: TwoPaths) {
-    this.blacks = paths.blacks.slice(0)
-    this.whites = paths.whites.slice(0)
-  }
-  merge_dup(paths: TwoPaths) {
-    batch(() => {
-      paths.paths.forEach(_ => this.add_path(_))
-    })
-  }
-
-  get_for_saving(): [string[][], string[][]] {
-    return [this.blacks, this.whites]
-  }
-
-  static set_for_saving(solved_paths: [string[][], string[][]]): TwoPaths {
-    let res = new TwoPaths()
-    res.blacks = solved_paths[0]
-    res.whites = solved_paths[1]
+  static set_for_saving(paths: string[][]): TwoPaths2 {
+    let res = new TwoPaths2()
+    res.paths = paths
     return res
   }
 
-  _blacks: Signal<string[][]>
-  _whites: Signal<string[][]>
-
-  set blacks(_: string[][]) {
-    this._blacks[1](_)
-  }
-
-  set whites(_: string[][]) {
-    this._whites[1](_)
-  }
-
-  get blacks() {
-    return this._blacks[0]()
-  }
-
-  get whites(){
-    return this._whites[0]()
-  }
+  _paths: Signal<string[][]>
 
   get paths() {
-    return [...this.blacks, ...this.whites]
+    return this._paths[0]().slice(0)
   }
 
-  get expand_paths() {
-    let res: string[][] = []
-
-    this.whites.forEach(_ => {
-      for (let i = 0; i <= _.length - 1; i+= 2) {
-        res.push(_.slice(0, i + 1))
-      }
-    })
-
-    this.blacks.forEach(_ => {
-      for (let i = 1; i <= _.length - 1; i+= 2) {
-        res.push(_.slice(0, i + 1))
-      }
-    })
-    return res
+  set paths(_: string[][]) {
+    this._paths[1](_)
   }
 
   constructor() {
-    this._blacks = createSignal<string[][]>([], { equals: false })
-    this._whites = createSignal<string[][]>([], { equals: false })
+    this._paths = createSignal<string[][]>([], { equals: false })
   }
 
-  clear() {
-    this.blacks = []
-    this.whites = []
+  get clone() {
+    let res = new TwoPaths2()
+    res.paths = this.paths.slice(0)
+    return res
   }
 
-  remove_path(path: string[]) {
-    untrack(() => {
-      if (path.length % 2 === 0) {
-        let bs = this.blacks
-        bs = bs.filter(_ => _.join('') !== path.join(''))
-        this.blacks = bs
-      } else {
-        let bs = this.whites
-        bs = bs.filter(_ => _.join('') !== path.join(''))
-        this.whites = bs
-      }
-    })
+  get_for_saving(): string[][] {
+    return this.paths
+  }
+
+  merge_dup(paths: TwoPaths2) {
+    paths.paths.forEach(_ => untrack(() => this.add_path(_)))
+  }
+
+  replace_all(tp: TwoPaths2) {
+    this.paths = tp.paths.slice(0)
   }
 
   add_path(path: string[]) {
-    untrack(() => {
-      if (path.length % 2 === 0) {
-        let bs = this.blacks
 
+    let bs = this.paths
 
-        if (bs.find(_ => _.join('').startsWith(path.join('')))) {
-          return
-        }
+    if (bs.find(_ => _.join('') === path.join(''))) {
+      return
+    }
 
-        let rm = bs.findIndex(_ => path.join('').startsWith(_.join('')))
-        if (rm !== -1) {
-          bs.splice(rm, 1, path)
-        } else {
-          bs.push(path)
-        }
-        this.blacks = bs
-      } else {
-        let bs = this.whites
+    /*
+    if (bs.find(_ => _.join('').startsWith(path.join('')))) {
+      return
+    }
 
-        if (bs.find(_ => _.join('').startsWith(path.join('')))) {
-          return
-        }
-
-
-        let rm = bs.findIndex(_ => path.join('').startsWith(_.join('')))
-        if (rm !== -1) {
-          bs.splice(rm, 1, path)
-        } else {
-          bs.push(path)
-        }
-        this.whites = bs
-      }
-    })
+    let rm = bs.findIndex(_ => path.join('').startsWith(_.join('')))
+    if (rm !== -1) {
+      bs.splice(rm, 1, path)
+    } else {
+      bs.push(path)
+    }
+    */
+   bs.push(path)
+    this.paths = bs
   }
+
+  remove_path(path: string[]) {
+    this.paths = this.paths.filter(_ => _.join('') !== path.join(''))
+  }
+
+  clear() {
+    if (this.paths.length > 0) {
+      this.paths = []
+    }
+  }
+
 }
-
-
-// @ts-ignore
-function test_two_paths() {
-  let t = new TwoPaths()
-
-  t.add_path(['e2e4'])
-
-
-  console.log(t.expand_paths)
-
-  t.add_path(['e2e4', 'e7e6', 'd2d4'])
-
-  console.log(t.expand_paths)
-
-
-  t.add_path(['e2e4', 'e7e6'])
-
-  console.log(t.expand_paths)
-
-  t.add_path(['e2e4'])
-  console.log(t.expand_paths)
-  console.log('whites', t.whites)
-}
-
-//test_two_paths()
 
 
 export class Treelala2 {
@@ -179,10 +91,10 @@ export class Treelala2 {
 
   _cursor_path: Signal<string[]>
 
-  _hidden_paths: TwoPaths
-  _revealed_paths: TwoPaths
-  _failed_paths: TwoPaths
-  _solved_paths: TwoPaths
+  _hidden_paths: TwoPaths2
+  _revealed_paths: TwoPaths2
+  _failed_paths: TwoPaths2
+  _solved_paths: TwoPaths2
 
   get hidden_paths() {
     return this._hidden_paths.paths
@@ -199,14 +111,14 @@ export class Treelala2 {
   }
 
   get failed_paths_expanded() {
-    return this._failed_paths.expand_paths
+    return this._failed_paths.paths
   }
 
   get solved_paths_expanded() {
-    return this._solved_paths.expand_paths
+    return this._solved_paths.paths
   }
   get revealed_paths_expanded() {
-    return this._revealed_paths.expand_paths
+    return this._revealed_paths.paths
   }
 
 
@@ -260,18 +172,24 @@ export class Treelala2 {
     this._cursor_path = createSignal<string[]>([], { equals: false })
     this._tree = createSignal(tree)
 
-    this._hidden_paths = new TwoPaths()
-    this._revealed_paths = new TwoPaths()
-    this._failed_paths = new TwoPaths()
-    this._solved_paths = new TwoPaths()
+    this._hidden_paths = new TwoPaths2()
+    this._revealed_paths = new TwoPaths2()
+    this._failed_paths = new TwoPaths2()
+    this._solved_paths = new TwoPaths2()
   }
 
   get is_revealed() {
     //return this.hidden_paths.length === 0
 
     let r = this.revealed_paths_expanded.pop()
+    let l = this.solved_paths_expanded.pop()
+    let no_h = this.hidden_paths.length === 0
+
+    if (no_h) {
+      return true
+    }
+
     if (!r) {
-      let l = this.solved_paths_expanded.pop()
   
       if (!l) {
         return false
@@ -280,7 +198,6 @@ export class Treelala2 {
       return this.tree?.get_children(l)?.length === 0
     }
     return true
-
   }
 
   reveal_hidden_paths = () => {
