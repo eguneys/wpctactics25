@@ -1,13 +1,11 @@
 @import '_variables';
 
-
 .on-home {
 
     h1,
     h2 {
         font-weight: normal;
     }
-
 
     .home {
         display: grid;
@@ -17,8 +15,8 @@
             'replay'
             'side'
             'under';
-        gap: 0.5em;
         grid-template-rows: fit-content(0);
+        row-gap: 0.5em;
 
 
        @media (min-width: 799px) {
@@ -26,15 +24,25 @@
            'board gauge replay'
            'side side side'
            'under under under';
-           grid-template-columns: min(62vw, 62vh) 2px minmax(240px, 380px);
+           grid-template-columns: var(--col2-uniboard-width) var(--block-gap) minmax(240px, 400px);
        }
 
        @media (min-width: 1259px) {
         grid-template-areas:
-        'side board gauge replay'
-        '. under . .';
+        'side . board gauge replay'
+        'side . under . .';
 
-        grid-template-columns: minmax(250px, 300px) min(82vw, 82vh) 2px minmax(230px, 300px);
+        grid-template-columns: minmax(250px, 350px) var(--block-gap) var(--col3-uniboard-width) var(--block-gap) minmax(240px, 400px);
+       }
+       
+       @media (max-width: 799.29px) and (orientation: landscape) {
+           grid-template-areas:
+           'board gauge replay'
+           'side side side'
+           'under under under';
+           grid-template-columns: var(--col2-uniboard-width) var(--block-gap) minmax(240px, 400px);
+
+
        }
 
     }

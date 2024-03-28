@@ -198,15 +198,6 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         }
     }))
 
-    createEffect(() => {
-        if (puzzle_lala().is_revealed && is_jump_to_next_puzzle_immediately()) {
-
-            setTimeout(() => {
-                on_next_puzzle()
-            }, 600)
-        }
-    })
-
 
     let reveal_result = createMemo(on(() => puzzle_lala().is_revealed, (is_revealed) => {
         if (!in_run()) {
@@ -237,8 +228,14 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     }))
 
     createEffect(() => {
-        console.log(reveal_result())
+        if (reveal_result() === 'solved' && is_jump_to_next_puzzle_immediately()) {
+            setTimeout(() => {
+                on_next_puzzle()
+            }, 600)
+        }
     })
+
+
 
     createEffect(on(reveal_result, r => {
 
@@ -488,7 +485,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                                     </Match>
                                 </Switch>
 
-                                <Show when={!is_jump_to_next_puzzle_immediately()}>
+                                <Show when={!(is_jump_to_next_puzzle_immediately() && reveal_result() === 'solved')}>
                                     <span onClick={() => on_next_puzzle()} class='link'>Continue with next puzzle.</span>
                                 </Show>
                             </>
