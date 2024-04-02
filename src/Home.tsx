@@ -48,10 +48,12 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     const [current_run, set_current_run] = createSignal(props.run, { equals: false })
     const pgn = () => props.pgn
 
+
+    const [resizable, set_resizable] = createSignal(true)
+
     const hide_first = () => pgn().hide_first
     const random_line = () => pgn().random_line
 
-    console.log(hide_first(), random_line())
     let tick_interval: number
     const [elapsed_ms, set_elapsed_ms] = createSignal(0)
 
@@ -167,6 +169,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     }))
 
     const on_next_puzzle = () => {
+        set_resizable(false)
         
         let i = i_chapter_index()
         if (i === undefined) {
@@ -397,6 +400,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
             <div class='board-wrap'>
                 <Chessboard
+                    resizable={resizable()}
                     orientation={turn_to_orientation()}
                     movable={i_chapter_index() !== undefined && !is_pending() && !puzzle_lala().is_revealed && puzzle_lala().is_next_hidden_cursor_path}
                     doPromotion={shalala.promotion}

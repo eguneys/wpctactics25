@@ -1,8 +1,13 @@
 @import '_variables';
 
+.none {
+    display: none !important;
+}
+
+
 body {
 
-    --board-scale: 1;
+    --board-scale: calc((var(--zoom) / 100) * 0.75 + 0.25);
     --site-header-margin: 0px;
     --site-header-height: 60px;
     --sticky-gap: 0.5vmin;
