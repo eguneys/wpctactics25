@@ -1,5 +1,8 @@
 u1600 "Tactics U1600"
 u2000 "Tactics U2000"
 u2200 "Tactics U2200"
-u2-ok    "Tactics U2" hide_first_move random_line
-mix200 "Mix 200"
+mix200 "Tactics Mixed 200"
+rook-u1600 "Rooks U1600"
+rook-u2000 "Rooks U2000"
+rook-u2200 "Rooks U2200"
+rook-mix200 "Rooks Mixed 200"

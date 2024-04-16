@@ -1,0 +1,999 @@
+[Puzzle "0048h"]
+[FEN "4r3/p5k1/2p2R1p/2Pp4/1P1pr1P1/P6P/8/3R3K w - - 1 35"]
+
+35. Rxc6 Re1+ 36. Rxe1 Rxe1+ 37. Kg2 d3 *
+
+[Puzzle "006yP"]
+[FEN "6R1/8/Kpk1p3/1p1pP3/6P1/PPP1r3/8/8 b - - 3 40"]
+
+40... Rxc3 41. Rc8+ Kd7 42. Rxc3 *
+
+[Puzzle "008tL"]
+[FEN "8/7k/pR5p/3p4/5r2/2P1p2P/P5P1/6K1 w - - 0 40"]
+
+40. Rxa6 e2 41. Re6 Rf1+ *
+
+[Puzzle "00Aae"]
+[FEN "1R6/1P6/4pkp1/5p2/3P3p/3KP3/8/1r6 b - - 0 43"]
+
+43... h3 44. Rf8+ Ke7 45. b8=Q Rxb8 46. Rxb8 *
+
+[Puzzle "00C7m"]
+[FEN "8/5k2/1P4R1/6PK/1r6/8/8/8 w - - 1 58"]
+
+58. Kh6 Rh4# *
+
+[Puzzle "00D12"]
+[FEN "8/6pp/8/3kP3/1p1P2P1/rPpK3P/4R3/8 b - - 1 39"]
+
+39... Rxb3 40. e6 c2+ 41. Kxc2 Rc3+ 42. Kd2 *
+
+[Puzzle "00FPo"]
+[FEN "7R/1K3p2/6k1/PP4p1/8/6rp/8/8 b - - 2 47"]
+
+47... g4 48. a6 h2 49. Rxh2 *
+
+[Puzzle "00IaZ"]
+[FEN "4R3/1k2R3/3K2p1/1P6/1P6/2rp3r/8/8 b - - 3 45"]
+
+45... Kb6 46. Rb8# *
+
+[Puzzle "00Ivf"]
+[FEN "8/2p4r/1p3k2/p2Pp1p1/P1P1RpP1/1P3P1r/4R1K1/8 w - - 7 46"]
+
+46. Rxe5 Rh2+ 47. Kf1 Rh1+ 48. Kf2 R7h2# *
+
+[Puzzle "00Kbj"]
+[FEN "8/8/6p1/PR3p2/1P3k2/7P/r5P1/7K w - - 1 39"]
+
+39. h4 Kg3 40. Rd5 Ra1+ 41. Rd1 Rxd1# *
+
+[Puzzle "00Kd8"]
+[FEN "3R4/3P4/8/5p2/5kPp/8/3r1KP1/8 w - - 1 64"]
+
+64. Kg1 Kg3 65. Kf1 fxg4 *
+
+[Puzzle "00MHi"]
+[FEN "8/8/5pp1/5k1p/5P1P/4R1P1/2r5/5K2 w - - 0 43"]
+
+43. Re2 Rxe2 44. Kxe2 Kg4 45. Kf2 Kh3 *
+
+[Puzzle "00V0G"]
+[FEN "8/6P1/5k1K/8/8/3p4/PR6/6r1 w - - 1 49"]
+
+49. Rd2 Rh1+ 50. Rh2 Rxh2# *
+
+[Puzzle "00XTV"]
+[FEN "8/2k4p/p2p2p1/2pP1p2/2P4P/3K4/P2R1PP1/4r3 w - - 0 28"]
+
+28. Re2 Rxe2 29. Kxe2 Kb6 30. Kf3 Ka5 31. a3 Ka4 *
+
+[Puzzle "00ZPK"]
+[FEN "5r2/R2R1pk1/P7/5pp1/8/1KP5/5r2/8 b - - 0 44"]
+
+44... g4 45. Rxf7+ Rxf7 46. Rxf7+ Kxf7 47. a7 *
+
+[Puzzle "00eGd"]
+[FEN "7R/8/p2kp3/2r4p/p4K2/6PP/P7/8 b - - 3 39"]
+
+39... Kd5 40. Rxh5+ e5+ 41. Rxe5+ *
+
+[Puzzle "00fgg"]
+[FEN "4r1k1/p4ppp/8/8/8/8/PP1b1PPP/K2R4 w - - 0 21"]
+
+21. Rxd2 Re1+ 22. Rd1 Rxd1# *
+
+[Puzzle "00igM"]
+[FEN "1k6/1p4R1/2p2p1P/8/2r5/p6K/8/8 b - - 0 39"]
+
+39... Re4 40. h7 *
+
+[Puzzle "00pBn"]
+[FEN "7R/8/8/P5p1/5k2/1KP3r1/7p/8 b - - 1 51"]
+
+51... Rg2 52. a6 Re2 53. a7 *
+
+[Puzzle "00rIF"]
+[FEN "1r6/p7/1p3k1K/P2p2pR/2p5/2P3P1/2P3P1/1R6 w - - 3 36"]
+
+36. Rxg5 Rh8# *
+
+[Puzzle "00sXv"]
+[FEN "8/r4pp1/2k1p2p/8/p2PP3/2K2PP1/6P1/1R6 w - - 1 35"]
+
+35. Kb4 Rb7+ 36. Kxa4 Rxb1 *
+
+[Puzzle "00slx"]
+[FEN "8/6r1/3kpRp1/6Pp/3K1P1P/8/8/8 b - - 0 61"]
+
+61... Ke7 62. Ke5 Rg8 63. Rxe6+ Kf7 64. f5 *
+
+[Puzzle "010N8"]
+[FEN "8/3r3p/pp1pk1pP/2rR1pP1/P1PRpP2/1P2P3/4K3/8 b - - 1 37"]
+
+37... Rxd5 38. cxd5+ Ke7 39. Rc4 *
+
+[Puzzle "013bF"]
+[FEN "8/6pk/8/R7/5Pp1/p5P1/7P/r3K3 w - - 2 46"]
+
+46. Kd2 a2 47. Kc3 Rc1+ *
+
+[Puzzle "015pp"]
+[FEN "8/8/8/3pp3/5P1R/r3k3/6K1/8 b - - 0 51"]
+
+51... exf4 52. Rh3+ Ke2 53. Rxa3 d4 54. Ra2+ *
+
+[Puzzle "017c1"]
+[FEN "8/8/8/1p6/4k3/2p4P/rP2RK2/8 b - - 1 49"]
+
+49... Kd4 50. bxc3+ Kxc3 51. Rxa2 *
+
+[Puzzle "019gx"]
+[FEN "1r6/6R1/3p4/1P1Rp3/K1r1P3/2k2P2/8/8 w - - 1 45"]
+
+45. Ka5 Ra4+ 46. Kxa4 Ra8+ 47. Ra7 Rxa7# *
+
+[Puzzle "01BI2"]
+[FEN "3R4/2p1k3/4p1p1/1p2P2p/1P6/8/4rr2/3R2K1 b - - 7 41"]
+
+41... Kf7 42. R1d7# *
+
+[Puzzle "01Egl"]
+[FEN "2k5/r5p1/2K2p1p/8/7P/p7/8/4R3 b - - 7 61"]
+
+61... a2 62. Re8# *
+
+[Puzzle "01Lmi"]
+[FEN "2r3k1/5pp1/2P4p/2R5/1r6/6P1/p4P1P/2R3K1 w - - 2 32"]
+
+32. Kg2 Rb1 33. Ra5 Rxc1 *
+
+[Puzzle "01M6C"]
+[FEN "4r1k1/1R4R1/2p5/p6K/P1P1r3/5p2/8/8 b - - 1 40"]
+
+40... Kf8 41. Rbf7# *
+
+[Puzzle "01MLC"]
+[FEN "8/4kp2/4p1pp/1r2P2P/1P3PK1/8/8/1R6 b - - 0 39"]
+
+39... f6 40. hxg6 fxe5 41. Kh5 exf4+ 42. Kxh6 f3 43. g7 Kf7 44. Rf1 *
+
+[Puzzle "01Ot9"]
+[FEN "8/8/5p2/5r1k/6Rp/5P2/4KP2/8 w - - 3 58"]
+
+58. Ke3 Re5+ 59. Kd3 Rg5 60. Rb4 h3 *
+
+[Puzzle "01SN2"]
+[FEN "8/r7/P1p5/3p4/3K2k1/1P5p/2P5/R7 b - - 1 44"]
+
+44... Kg3 45. Kc5 h2 46. Kb6 *
+
+[Puzzle "01W7X"]
+[FEN "8/1R6/p1r1k3/2P2p2/1P6/1K6/3R4/r7 b - - 2 48"]
+
+48... a5 49. Re2+ Kf6 50. Rb6 *
+
+[Puzzle "01WCP"]
+[FEN "6k1/p5p1/2R3P1/3pr3/8/4P3/P7/5K2 b - - 0 32"]
+
+32... Re7 33. Rc8+ Re8 34. Rxe8# *
+
+[Puzzle "01Zna"]
+[FEN "5k2/3R4/3P2K1/2p3P1/1p1r4/8/8/8 b - - 0 57"]
+
+57... c4 58. Rd8# *
+
+[Puzzle "01a8M"]
+[FEN "8/p2R1pkp/1p1R4/8/4PP1K/2r3rP/P7/8 w - - 13 34"]
+
+34. Rxa7 Rxh3+ 35. Kg5 Rcg3+ 36. Kf5 Rh5# *
+
+[Puzzle "01clX"]
+[FEN "8/8/2p2k2/1p2rp2/p2R2pP/P1P3P1/5PK1/8 b - - 2 47"]
+
+47... Rd5 48. Rxd5 cxd5 49. Kf1 *
+
+[Puzzle "01kY6"]
+[FEN "6k1/8/6pr/5p2/1P1R1P2/8/3K4/8 b - - 0 47"]
+
+47... Rh7 48. Rd8+ Kf7 49. Rd7+ *
+
+[Puzzle "01mUL"]
+[FEN "8/p1r1k3/1p1R1p1p/P7/1P6/7P/6PK/8 w - - 1 51"]
+
+51. axb6 Kxd6 52. bxc7 Kxc7 *
+
+[Puzzle "01oz9"]
+[FEN "1k6/1p6/pK4p1/7p/P1P5/4R1P1/6r1/8 b - - 1 35"]
+
+35... Rd2 36. Re8+ Rd8 37. Rxd8# *
+
+[Puzzle "01sxB"]
+[FEN "8/6p1/3k3r/1R6/6Kp/7P/5P2/8 b - - 0 50"]
+
+50... Rf6 51. Rb6+ Ke7 52. Rxf6 Kxf6 53. Kxh4 g5+ 54. Kh5 *
+
+[Puzzle "01uzu"]
+[FEN "1r6/3k4/3p1p2/2p1p1p1/2PBP1Pp/Pp1P1P1P/1K6/1R6 b - - 0 42"]
+
+42... cxd4 43. a4 Rb7 44. Ka3 *
+
+[Puzzle "01x2C"]
+[FEN "4r3/4r3/3kP2p/pppPRRpP/3pKpP1/1P3P2/1P6/8 b - - 1 46"]
+
+46... Rc8 47. Rf7 Rxf7 48. exf7 *
+
+[Puzzle "01xBJ"]
+[FEN "1kr5/6RP/1pp5/7r/p1P5/8/PP3PP1/6K1 b - - 3 45"]
+
+45... Rh8 46. Rg8+ Kc7 47. Rxh8 *
+
+[Puzzle "01xyJ"]
+[FEN "8/7p/5Kpk/5p2/8/4p1Pr/8/4R3 b - - 3 43"]
+
+43... Rxg3 44. Rh1+ Rh3 45. Rxh3# *
+
+[Puzzle "021eN"]
+[FEN "1rr5/R3p2p/3p2p1/4k3/3RP3/1pP1K3/1P4PP/8 b - - 6 35"]
+
+35... Rxc3+ 36. bxc3 b2 37. Rd1 *
+
+[Puzzle "022Lj"]
+[FEN "8/R5p1/5k1p/8/7K/1r5P/6P1/8 w - - 0 38"]
+
+38. g4 g5+ 39. Kh5 Rxh3# *
+
+[Puzzle "0291d"]
+[FEN "8/8/3p1k2/R2P3K/5P2/3r2P1/8/8 w - - 1 63"]
+
+63. g4 Rh3# *
+
+[Puzzle "02A8s"]
+[FEN "6k1/7p/3P2p1/1R6/8/7r/K7/8 b - - 0 43"]
+
+43... Kf8 44. Rb8+ Kf7 45. d7 *
+
+[Puzzle "02BXF"]
+[FEN "7R/8/5pk1/8/4p1p1/2K4p/1P6/8 w - - 0 54"]
+
+54. Rh4 f5 55. Kd2 Kg5 56. Rh8 Kf4 57. b4 g3 58. Rh4+ Kf3 *
+
+[Puzzle "02CIw"]
+[FEN "4K3/4P3/6k1/1R6/5r2/p7/8/8 b - - 0 67"]
+
+67... Ra4 68. Kf8 Rf4+ 69. Kg8 *
+
+[Puzzle "02DtC"]
+[FEN "8/3R4/p1p1KP2/1pP5/1Pk5/8/8/5r2 b - - 4 66"]
+
+66... Re1+ 67. Kd6 Rf1 68. f7 Kxb4 69. Kxc6 *
+
+[Puzzle "02Jyd"]
+[FEN "4rk2/5p2/3R4/3P2R1/2p1r2p/2P4P/5KP1/8 w - - 0 34"]
+
+34. Rc6 Rf4+ 35. Kg1 Re1+ 36. Kh2 Rff1 37. Rc8+ Ke7 38. Re5+ Rxe5 *
+
+[Puzzle "02KwH"]
+[FEN "r5k1/4r1pR/3pNPP1/8/1pp1P3/p7/2P5/1K6 b - - 0 38"]
+
+38... Rxe6 39. f7+ Kf8 40. Rh8+ Ke7 41. Rxa8 *
+
+[Puzzle "02LMw"]
+[FEN "6k1/7p/2P3p1/8/2K2pP1/4rP2/8/8 b - - 0 43"]
+
+43... Rxf3 44. c7 Re3 45. c8=Q+ *
+
+[Puzzle "02LgW"]
+[FEN "3r4/p4k1p/1p4p1/2P1pp2/8/1P2K3/P4PPP/2R5 b - - 0 27"]
+
+27... Rc8 28. cxb6 Rxc1 29. b7 *
+
+[Puzzle "02N9r"]
+[FEN "1r6/4kP2/2p4p/5R1K/3p2P1/8/8/8 b - - 4 65"]
+
+65... Rh8 66. Kg6 *
+
+[Puzzle "02YSF"]
+[FEN "8/p5k1/2p1R1P1/3p4/3P4/r7/1r6/5RK1 b - - 5 32"]
+
+32... Rc2 33. Rf7+ Kh6 34. g7+ Kh7 35. Rh6+ Kxh6 36. g8=Q *
+
+[Puzzle "02b0d"]
+[FEN "3r1k2/2R3pr/1R6/p4p2/8/P5KP/1P4P1/8 w - - 6 43"]
+
+43. Kf4 g5+ 44. Kxg5 Rxc7 *
+
+[Puzzle "02bbP"]
+[FEN "2r5/pp2kpr1/3p4/3P4/3pP2p/3P3P/PP3R2/5R1K b - - 0 29"]
+
+29... Rg3 30. Rxf7+ Kd8 31. Rf8+ Kc7 32. Rc1+ *
+
+[Puzzle "02fzY"]
+[FEN "7r/6RP/2p5/8/2k4K/1p6/5P2/8 w - - 0 50"]
+
+50. Kh5 b2 51. Rb7 Rxh7+ 52. Rxh7 b1=Q *
+
+[Puzzle "02irR"]
+[FEN "3r4/2KP1k2/8/5p2/p4Ppp/P1P5/1P2R3/8 b - - 2 54"]
+
+54... Rxd7+ 55. Kxd7 h3 56. Rh2 *
+
+[Puzzle "02jr4"]
+[FEN "8/5p2/2k5/8/p5Pp/P6r/1PPR4/2K5 w - - 0 39"]
+
+39. Kd1 Rh1+ 40. Ke2 Rh2+ *
+
+[Puzzle "02lUT"]
+[FEN "8/4k3/7P/3pP1K1/p1p5/Pp1r4/5P2/R7 w - - 2 46"]
+
+46. Rh1 Rf3 47. h7 Rf8 48. h8=Q Rxh8 *
+
+[Puzzle "02nyA"]
+[FEN "8/1p1R2p1/p1p3r1/P1P5/1P3k1K/7P/8/8 w - - 0 45"]
+
+45. Rf7+ Rf6 46. Rxf6+ gxf6 *
+
+[Puzzle "02qYb"]
+[FEN "2r5/8/4P3/5PK1/8/4k1P1/8/8 b - - 2 70"]
+
+70... Ke4 71. e7 Ke5 72. Kg6 Rg8+ 73. Kf7 *
+
+[Puzzle "02sDX"]
+[FEN "6k1/1pK3p1/3P4/5R1p/1P6/P6P/2r2p2/8 w - - 2 49"]
+
+49. Kd8 g6 50. Rf3 g5 *
+
+[Puzzle "02tNt"]
+[FEN "4r3/8/P6p/2R2P2/1P3k2/2P5/5r2/2K3R1 w - - 3 48"]
+
+48. Rg6 Re1# *
+
+[Puzzle "02uIX"]
+[FEN "2r5/8/p7/3R2pk/1P3pp1/8/PP3PKP/8 w - - 0 34"]
+
+34. a4 f3+ 35. Kg3 Rc1 36. h3 Rg1+ 37. Kh2 Rg2+ *
+
+[Puzzle "02xnk"]
+[FEN "8/6k1/1n2pr2/1R4Kp/p6P/P7/1P2R3/8 w - - 0 43"]
+
+43. Rxb6 Rf5# *
+
+[Puzzle "033TS"]
+[FEN "8/8/R7/8/1pk5/7P/P2r4/6K1 w - - 0 63"]
+
+63. Rc6+ Kb5 64. Rc8 Rxa2 *
+
+[Puzzle "03BcT"]
+[FEN "6k1/2R5/1p2r2p/p4p2/3R1p2/P4KP1/1P2r2P/8 b - - 1 38"]
+
+38... Rxh2 39. Rd8+ Re8 40. Rxe8# *
+
+[Puzzle "03Caw"]
+[FEN "3r2k1/pp4pp/8/1PP2p2/5P2/8/P2rp1PP/R1R3K1 w - - 0 26"]
+
+26. Re1 Rd1 27. Kf2 Rxa1 *
+
+[Puzzle "03Cge"]
+[FEN "8/pR3kpp/5p2/2pK1P2/7P/2rp4/5P2/8 b - - 1 32"]
+
+32... Kf8 33. Ke6 g6 34. Kxf6 Ke8 35. Ke6 *
+
+[Puzzle "03Efd"]
+[FEN "8/7r/3pkpp1/7P/1PP5/7R/2K4P/8 b - - 0 43"]
+
+43... Rxh5 44. Rxh5 gxh5 45. b5 *
+
+[Puzzle "03GM2"]
+[FEN "4r3/8/pp2pR2/4P3/2Pk1P2/P2p4/3K4/8 w - - 2 54"]
+
+54. f5 Rh8 55. fxe6 Rh2+ *
+
+[Puzzle "03HTm"]
+[FEN "2r2k2/3R2p1/2p3Kp/1pp5/6P1/1P1P3P/8/8 b - - 0 38"]
+
+38... Re8 39. Rf7+ Kg8 40. Rxg7+ *
+
+[Puzzle "03JVD"]
+[FEN "r7/6P1/8/8/5p2/5P1p/3RK3/2k5 w - - 1 51"]
+
+51. Ke1 Re8+ 52. Re2 h2 53. Rxe8 h1=Q+ *
+
+[Puzzle "03K14"]
+[FEN "8/8/6P1/5P2/2k5/1p5r/1Kp5/2R5 b - - 0 53"]
+
+53... Rh8 54. g7 Ra8 55. Ra1 c1=B+ 56. Rxc1+ *
+
+[Puzzle "03Msh"]
+[FEN "3r2r1/2p2R2/3p4/1p6/p4k2/P1P5/1P3K2/4R3 b - - 1 42"]
+
+42... Kg4 43. Rg1+ Kh5 44. Rh7# *
+
+[Puzzle "03PlA"]
+[FEN "8/8/1r4p1/3k1p1p/3P3P/1pK3P1/1R3P2/8 w - - 0 42"]
+
+42. Rxb3 Rxb3+ 43. Kxb3 Kxd4 44. Kc2 Ke4 *
+
+[Puzzle "03Q5V"]
+[FEN "8/8/1p1r1pk1/pR1P2p1/P2K2P1/8/8/8 b - - 6 45"]
+
+45... f5 46. Ke5 Rf6 47. d6 *
+
+[Puzzle "03R4G"]
+[FEN "8/5p2/8/4kP2/6P1/p1RK4/P7/6r1 w - - 5 45"]
+
+45. Rxa3 Rg3+ 46. Ke2 Rxa3 *
+
+[Puzzle "03XDF"]
+[FEN "6k1/2r2ppp/8/4p3/3p4/R2P4/5PPP/6K1 b - - 0 33"]
+
+33... Rc6 34. Ra8+ Rc8 35. Rxc8# *
+
+[Puzzle "03ZMh"]
+[FEN "5R2/8/8/6p1/5pk1/r7/5PKP/8 w - - 0 46"]
+
+46. Rh8 f3+ 47. Kf1 Ra1# *
+
+[Puzzle "03Zi5"]
+[FEN "1r6/2R2p1p/4kp2/p2p1p2/8/1P2PK2/P4P1r/2R5 b - - 3 25"]
+
+25... Rg8 26. R1c6+ Ke5 27. Re7# *
+
+[Puzzle "03m7x"]
+[FEN "8/pkpR4/1p3p1P/6r1/P1p3P1/7K/8/8 b - - 0 48"]
+
+48... Kc6 49. h7 Kxd7 50. h8=Q *
+
+[Puzzle "03uRJ"]
+[FEN "3r1r2/p5k1/2p4R/1pp2pK1/4N3/8/PPP5/7R b - - 1 27"]
+
+27... fxe4 28. Rg6+ Kf7 29. Rh7+ Ke8 30. Re6# *
+
+[Puzzle "03uT1"]
+[FEN "5k2/5p2/8/R7/2p1K2r/2P5/P7/8 w - - 0 49"]
+
+49. Kd5 Rh5+ 50. Kxc4 Rxa5 *
+
+[Puzzle "03vyj"]
+[FEN "2k5/2p2R2/2Pp1p2/r3p1p1/8/1P1P4/2PK1P2/8 b - - 5 36"]
+
+36... Rc5 37. Rf8# *
+
+[Puzzle "03wAG"]
+[FEN "8/1p5k/p3p3/P2rP3/3p1R2/5pP1/1P3P2/6K1 w - - 0 48"]
+
+48. Rxf3 d3 49. Rxd3 Rxd3 *
+
+[Puzzle "03wGy"]
+[FEN "8/8/4p3/4kp2/2r5/5RP1/5PK1/8 w - - 2 47"]
+
+47. Rf4 Rxf4 48. gxf4+ Kxf4 *
+
+[Puzzle "03xIU"]
+[FEN "R7/P3k1p1/5p1p/5P2/3K2P1/r7/8/8 b - - 6 62"]
+
+62... Ra4+ 63. Kc5 Kf7 64. Kb6 *
+
+[Puzzle "03xkS"]
+[FEN "8/1p3p1p/8/1R1P1p2/2P2k2/1P5P/1P1r2P1/7K w - - 3 32"]
+
+32. Rxb7 Kg3 33. Re7 Rd1+ 34. Re1 Rxe1# *
+
+[Puzzle "03zcV"]
+[FEN "8/8/3k4/2R3p1/1P2p1Pp/4K2P/1rP5/8 w - - 3 52"]
+
+52. Kxe4 Rxb4+ 53. Kf5 Kxc5 *
+
+[Puzzle "041Tw"]
+[FEN "8/1k6/4R3/5p2/5r1P/2p5/6PK/8 w - - 0 48"]
+
+48. Kg3 Re4 49. Rxe4 fxe4 *
+
+[Puzzle "0459c"]
+[FEN "6R1/P7/8/5k2/5pp1/1r6/5K2/8 b - - 0 52"]
+
+52... Rb2+ 53. Ke1 Rb1+ 54. Kd2 *
+
+[Puzzle "046Gh"]
+[FEN "4R3/r4p2/p2r4/3k2p1/3R4/3K4/8/8 b - - 1 45"]
+
+45... Kc5 46. Rc8+ Rc6 47. Rc4+ *
+
+[Puzzle "04711"]
+[FEN "5kr1/5p2/4p3/pp5R/6P1/P2R2KP/1r6/8 b - - 1 37"]
+
+37... b4 38. Rd8+ Ke7 39. Rxg8 *
+
+[Puzzle "049u9"]
+[FEN "7R/4k3/8/5K2/8/8/8/3r4 b - - 21 71"]
+
+71... Kd6 72. Rd8+ Kc6 73. Rxd1 *
+
+[Puzzle "04BSu"]
+[FEN "8/3r1r1k/8/PP4pp/4R3/4P3/3p2PP/1R4K1 w - - 0 35"]
+
+35. Rd4 Rxd4 36. exd4 Rc7 37. Rd1 Rc1 38. Kf2 Rxd1 *
+
+[Puzzle "04Exi"]
+[FEN "8/8/1R6/1P3p2/5kpp/7P/6PK/1r6 w - - 0 47"]
+
+47. Rb8 g3# *
+
+[Puzzle "04Fg4"]
+[FEN "8/3P1k2/8/4R1p1/1K2Pp2/8/8/3r4 w - - 1 56"]
+
+56. Rd5 Rxd5 57. exd5 Ke7 58. d8=Q+ Kxd8 *
+
+[Puzzle "04Gf3"]
+[FEN "r7/5pk1/p3p3/4P1K1/5P2/R7/1r6/R7 w - - 9 44"]
+
+44. Rxa6 Rg2+ 45. Kh5 Rh8# *
+
+[Puzzle "04HSJ"]
+[FEN "4r3/p5k1/1p1p1p2/2pP1Pp1/2P1P1Pr/2P5/P5KP/4RR2 w - - 0 37"]
+
+37. Re3 Rxg4+ *
+
+[Puzzle "04HVI"]
+[FEN "5R2/4k3/p3p2r/1pp3P1/5R2/8/PP1r4/6K1 b - - 1 39"]
+
+39... Rg6 40. R4f7+ Kd6 41. Rd8+ Kc6 42. Rxd2 *
+
+[Puzzle "04JGb"]
+[FEN "4r3/P7/6R1/8/8/5k2/6p1/5K2 w - - 0 67"]
+
+67. Kg1 Re1+ 68. Kh2 Rh1# *
+
+[Puzzle "04JNB"]
+[FEN "4r3/1R3p2/4pk2/6p1/4P1P1/8/5K2/8 b - - 9 53"]
+
+53... Re7 54. e5+ Kxe5 55. Rxe7 *
+
+[Puzzle "04LC0"]
+[FEN "8/4r3/2k2ppp/pR6/P4K1P/6P1/5P2/8 b - - 2 39"]
+
+39... Re5 40. Rxe5 fxe5+ 41. Kxe5 *
+
+[Puzzle "04Mua"]
+[FEN "6k1/R4p2/P3p2p/3p1rp1/8/8/5r2/R5K1 b - - 5 42"]
+
+42... Rb2 43. Rb7 Re2 44. a7 Rff2 45. a8=Q+ *
+
+[Puzzle "04PCA"]
+[FEN "8/2R4p/6pk/5p2/1rBP1KPP/4PP2/8/2r5 b - - 0 41"]
+
+41... Rbxc4 42. g5+ Kh5 43. Rxh7# *
+
+[Puzzle "04QEw"]
+[FEN "6k1/5ppp/1pr1p3/p7/1P2P3/R3P2P/5PK1/8 b - - 0 22"]
+
+22... axb4 23. Ra8+ Rc8 24. Rxc8# *
+
+[Puzzle "04SGJ"]
+[FEN "8/2R5/2P4k/5Ppp/8/6PK/r6P/8 w - - 1 56"]
+
+56. Re7 g4+ 57. Kh4 Rxh2# *
+
+[Puzzle "04SS6"]
+[FEN "6k1/5ppp/4p3/8/1r1P4/2R3P1/5PKP/8 b - - 0 33"]
+
+33... Rxd4 34. Rc8+ Rd8 35. Rxd8# *
+
+[Puzzle "04SXy"]
+[FEN "8/R4pp1/pr6/7k/5K1P/5P2/8/8 w - - 0 44"]
+
+44. Rxf7 Rf6+ 45. Rxf6 gxf6 46. Kf5 a5 *
+
+[Puzzle "04WhH"]
+[FEN "1R6/8/2P2pk1/1K6/7p/1P6/8/2r5 b - - 1 44"]
+
+44... h3 45. Rh8 Rc3 46. b4 f5 47. Kb6 *
+
+[Puzzle "04XDG"]
+[FEN "3k4/7R/p2K4/8/6r1/6P1/8/8 b - - 2 51"]
+
+51... Rxg3 52. Rh8+ Rg8 53. Rxg8# *
+
+[Puzzle "04Ya2"]
+[FEN "2k1r3/R5pp/p7/2p5/P1P5/6P1/2N1r2P/3R2K1 b - - 0 30"]
+
+30... Rxc2 31. Ra8+ Kb7 32. Rxe8 *
+
+[Puzzle "04bSF"]
+[FEN "8/8/4kp2/2pPp1p1/1p4P1/1P1PK3/r1P1RP2/8 b - - 0 40"]
+
+40... Kxd5 41. c4+ bxc3 42. Rxa2 *
+
+[Puzzle "04iO5"]
+[FEN "8/7R/5p1p/3k2p1/8/6P1/6K1/4r3 b - - 1 60"]
+
+60... Ke4 61. Re7+ Kd5 62. Rxe1 *
+
+[Puzzle "04jax"]
+[FEN "8/4k3/1p4K1/2p1pr2/2P3p1/pP4P1/P2R3P/8 b - - 1 54"]
+
+54... Ke6 55. Rd6+ Kxd6 56. Kxf5 e4 57. Kxe4 *
+
+[Puzzle "04m1I"]
+[FEN "2R5/5kp1/3r4/8/6P1/3rKPP1/2p5/2R5 w - - 2 48"]
+
+48. Kf4 Rf6+ 49. Ke4 Rd1 50. Rc7+ Kg6 51. Rxg7+ Kxg7 *
+
+[Puzzle "04oYd"]
+[FEN "4r1k1/3R1p1p/p5pK/2p2p2/2P5/P6P/6P1/8 b - - 2 39"]
+
+39... Re3 40. Rd8+ Re8 41. Rxe8# *
+
+[Puzzle "04sgC"]
+[FEN "6k1/3R4/3p4/3P1ppp/1P6/4PpP1/6r1/5K2 b - - 3 40"]
+
+40... Rxg3 41. b5 Rh3 42. b6 *
+
+[Puzzle "04t1e"]
+[FEN "8/5pk1/3p2p1/1p6/5P2/5Kp1/p7/6R1 w - - 0 40"]
+
+40. Kxg3 b4 41. Ra1 b3 *
+
+[Puzzle "04yi1"]
+[FEN "R7/7k/5K2/4P3/6r1/7p/8/8 w - - 0 51"]
+
+51. Ra3 Rg6+ 52. Kf7 h2 53. Rh3+ Rh6 54. Rxh2 Rxh2 55. e6 Rf2+ *
+
+[Puzzle "04zd4"]
+[FEN "2R5/p4krp/2p5/2P2p2/1P6/P6K/8/8 b - - 4 41"]
+
+41... f4 42. Rc7+ Kf6 43. Rxg7 *
+
+[Puzzle "04zwl"]
+[FEN "3k4/R7/3K4/4Pp2/8/pr1p4/8/8 b - - 2 54"]
+
+54... d2 55. Ra8+ Rb8 56. Rxb8# *
+
+[Puzzle "050MV"]
+[FEN "8/6pk/R6p/P7/6P1/r5K1/8/8 w - - 3 34"]
+
+34. Kh4 g5+ 35. Kh5 Rh3# *
+
+[Puzzle "054BF"]
+[FEN "6k1/8/5P2/4R1K1/5P1P/1p6/8/1r6 w - - 0 53"]
+
+53. Kg6 Rg1+ 54. Kh6 b2 *
+
+[Puzzle "057C8"]
+[FEN "6RK/7P/8/6r1/8/4p3/8/7k b - - 1 78"]
+
+78... Re5 79. Kg7 Rg5+ 80. Kh6 *
+
+[Puzzle "057f0"]
+[FEN "7r/7r/4p2P/1p1p2k1/p2P3R/2P1K3/PP6/7R b - - 0 44"]
+
+44... Rxh6 45. Rxh6 Rxh6 46. Rxh6 Kxh6 47. Kf4 Kg7 48. Ke5 Kf7 49. Kd6 *
+
+[Puzzle "057sV"]
+[FEN "8/8/R4p2/3kpPP1/7P/8/p5K1/r7 b - - 1 46"]
+
+46... fxg5 47. hxg5 Rc1 48. Rxa2 *
+
+[Puzzle "059fx"]
+[FEN "8/5p2/2p1p1k1/1p4rp/1P1P1KP1/R1P4P/8/8 b - - 3 31"]
+
+31... f5 32. Ra8 Kh6 33. Rh8+ *
+
+[Puzzle "05CjS"]
+[FEN "8/p4pp1/7p/2k1P2P/r1p2P2/2K1P3/P1R2P2/8 w - - 0 37"]
+
+37. Rd2 Ra3+ 38. Kc2 Rxa2+ 39. Kd1 Rxd2+ 40. Kxd2 Kd5 *
+
+[Puzzle "05HEv"]
+[FEN "5rk1/ppR5/6p1/2p1p3/2P1P3/3P1rK1/PP6/3R4 w - - 1 39"]
+
+39. Kg4 R8f4+ 40. Kg5 Rg3+ 41. Kh6 Rh4# *
+
+[Puzzle "05IZN"]
+[FEN "8/8/pK3k1p/6pP/6P1/P1r2P2/5R2/8 w - - 0 43"]
+
+43. Kxa6 Rxa3+ 44. Kb5 Ke5 *
+
+[Puzzle "05NJS"]
+[FEN "8/6k1/1RP5/RP1p1r1p/3P1r1K/8/7P/8 w - - 4 50"]
+
+50. Kg3 Rg4+ 51. Kh3 Rf3# *
+
+[Puzzle "05NV9"]
+[FEN "8/8/1p3p2/1P2p3/4P1pk/4K2p/2r2N2/7R b - - 7 55"]
+
+55... Rxf2 56. Kxf2 f5 57. exf5 g3+ 58. Kf3 e4+ 59. Kf4 h2 60. f6 Kh3 61. f7 *
+
+[Puzzle "05Qw2"]
+[FEN "r5k1/3RP1p1/7p/1p6/p4p2/4pP1P/4K1P1/8 b - - 0 42"]
+
+42... Kf7 43. Rd8 Kxe7 44. Rxa8 *
+
+[Puzzle "05Rwn"]
+[FEN "6k1/5pp1/p6p/1p3P2/2p1P3/2Pr4/PP3qPP/5R1K w - - 0 27"]
+
+27. Rxf2 Rd1+ 28. Rf1 Rxf1# *
+
+[Puzzle "05Tio"]
+[FEN "8/2PR4/6p1/2r2pk1/8/3K4/8/8 b - - 6 51"]
+
+51... Kg4 52. Rd4+ Kg3 53. Rc4 Rxc7 54. Rxc7 *
+
+[Puzzle "05Tnn"]
+[FEN "8/4pR2/8/2PK4/6k1/8/2r3p1/8 w - - 0 69"]
+
+69. Rxe7 Rxc5+ 70. Kxc5 g1=Q+ *
+
+[Puzzle "05WvQ"]
+[FEN "8/8/3p4/3P1pp1/2Pk4/4R3/1r2KPPP/8 w - - 6 41"]
+
+41. Kf3 g4+ 42. Kg3 f4+ 43. Kxg4 fxe3 *
+
+[Puzzle "05c9n"]
+[FEN "7r/pr4pp/1Ppkp3/3p4/p2P4/5P2/PR4PP/1R4K1 b - - 0 27"]
+
+27... Rhb8 28. bxa7 Rxa7 29. Rxb8 *
+
+[Puzzle "05cIJ"]
+[FEN "4r3/6pk/7p/4r3/4pR1R/3pK3/PP4PP/8 w - - 6 35"]
+
+35. b4 g5 36. Rxh6+ Kxh6 *
+
+[Puzzle "05iJw"]
+[FEN "8/6R1/1kp2R2/p7/1pp5/P1P5/KP5r/8 w - - 0 48"]
+
+48. Rgg6 b3+ 49. Ka1 Rh1+ 50. Rg1 Rxg1+ 51. Rf1 Rxf1# *
+
+[Puzzle "05j7G"]
+[FEN "8/8/3R4/ppk1P3/4P3/r7/3K4/8 b - - 1 45"]
+
+45... b4 46. Rd5+ Kc4 47. e6 Rh3 48. e7 Rh8 49. Rd8 *
+
+[Puzzle "05jlL"]
+[FEN "8/8/2p3p1/1P1k1p1p/3r4/4KPP1/1R5P/8 b - - 0 47"]
+
+47... cxb5 48. Rxb5+ Kc4 49. Rb4+ Kxb4 50. Kxd4 *
+
+[Puzzle "05jtX"]
+[FEN "8/8/4R1P1/8/6r1/5k2/4p3/2K5 w - - 0 65"]
+
+65. Kd2 Rd4+ 66. Kc3 Rd6 67. Rxd6 e1=Q+ *
+
+[Puzzle "05kO5"]
+[FEN "8/p2rk1pp/P2R1p2/2P5/8/5P2/5P1P/6K1 w - - 3 40"]
+
+40. Rc6 Rd1+ 41. Kg2 Kd7 42. Rd6+ Rxd6 *
+
+[Puzzle "05lEx"]
+[FEN "8/8/7P/4R3/5k1K/8/8/6r1 w - - 1 52"]
+
+52. Kh5 Kxe5 53. h7 Ke6 54. Kh6 Kf7 55. h8=Q Rh1+ 56. Kg5 Rxh8 *
+
+[Puzzle "05lMq"]
+[FEN "8/2R2R2/1p6/prk4p/7P/1r3PK1/1P6/8 b - - 3 42"]
+
+42... Kb4 43. Rf4# *
+
+[Puzzle "05lNL"]
+[FEN "6k1/8/6K1/1R6/1P5p/6r1/8/8 w - - 2 55"]
+
+55. Kh5 h3 56. Kh4 h2 57. Kxg3 h1=Q *
+
+[Puzzle "05nvC"]
+[FEN "3r4/3P2kp/p1r3p1/1p3p2/8/8/P1PR1KPP/4R3 b - - 8 30"]
+
+30... Kf6 31. Re8 Rxd7 32. Rxd7 *
+
+[Puzzle "05qR3"]
+[FEN "8/6k1/6p1/P1R3K1/2p5/r1P5/8/8 b - - 6 46"]
+
+46... Rxc3 47. Rc7+ Kg8 48. a6 *
+
+[Puzzle "05uNL"]
+[FEN "8/6p1/2k4p/2P1pp1P/7r/3PK3/1PR5/8 w - - 2 46"]
+
+46. Rc4 Rxc4 47. dxc4 Kxc5 48. Kd3 Kb4 49. b3 f4 50. Ke4 Kc5 *
+
+[Puzzle "05vpY"]
+[FEN "8/8/6RP/2k5/1p2r3/4p3/4K3/8 b - - 0 60"]
+
+60... Kd4 61. h7 Rh4 62. Rg4+ Rxg4 63. h8=Q+ *
+
+[Puzzle "05xLK"]
+[FEN "8/p7/1p6/2p5/P1P1K1r1/1P1R2P1/2k5/8 w - - 1 49"]
+
+49. Kf3 Rxg3+ 50. Kxg3 Kxd3 *
+
+[Puzzle "05zqW"]
+[FEN "8/1p6/p7/2p3PR/3k4/P3r2P/8/6K1 w - - 0 42"]
+
+42. g6 Rg3+ 43. Kf2 Rxg6 *
+
+[Puzzle "063iU"]
+[FEN "3rk3/3p1p2/5K2/1pp1P3/p4P2/8/3R4/8 b - - 1 43"]
+
+43... b4 44. Rh2 d5 45. e6 fxe6 46. Kxe6 Rd6+ 47. Kxd6 *
+
+[Puzzle "0688q"]
+[FEN "8/7p/8/1r2p3/4k3/6P1/1pK2P1P/1R6 w - - 6 41"]
+
+41. Rxb2 Rxb2+ 42. Kxb2 Kf3 43. Kc3 Kxf2 *
+
+[Puzzle "06C5Z"]
+[FEN "8/8/p7/1p3k2/2pP1r1p/4KP2/PP5R/8 b - - 0 58"]
+
+58... Kg5 59. Rg2+ Kf5 60. Rg8 Rxf3+ 61. Kxf3 *
+
+[Puzzle "06HLr"]
+[FEN "8/6k1/6p1/6K1/5P1P/6R1/8/r7 w - - 21 53"]
+
+53. Re3 Rg1+ 54. Rg3 Rxg3# *
+
+[Puzzle "06IK9"]
+[FEN "8/3k4/p1p2rp1/2Pp1P1p/PP2pKPP/4P3/8/6R1 w - - 0 38"]
+
+38. g5 Rxf5+ 39. Kg3 Rf3+ 40. Kg2 Rxe3 *
+
+[Puzzle "06KT9"]
+[FEN "8/8/4P1k1/8/p6R/2P4p/PPK1r3/8 w - - 2 37"]
+
+37. Kc1 h2 38. e7 Kf7 39. e8=R Kxe8 *
+
+[Puzzle "06UO9"]
+[FEN "8/8/2RPr3/p5p1/k7/5PK1/8/8 b - - 0 47"]
+
+47... Kb5 48. d7 Rxc6 49. d8=Q *
+
+[Puzzle "06cyh"]
+[FEN "6k1/5p1p/8/pR6/2r1rp2/7P/PP1KpP2/4R3 w - - 0 31"]
+
+31. Rxe2 Red4+ 32. Ke1 Rc1# *
+
+[Puzzle "06eFq"]
+[FEN "6k1/pp2r3/4PK2/1PR5/7r/6p1/8/8 b - - 1 44"]
+
+44... Rhh7 45. Rc8+ Re8 46. Rxe8# *
+
+[Puzzle "06gh6"]
+[FEN "6R1/8/p7/8/1PK2p1k/r6P/8/8 w - - 2 56"]
+
+56. Rh8+ Kg3 57. h4 f3 *
+
+[Puzzle "06ilc"]
+[FEN "r7/6p1/P6p/1k2pp2/8/3K1P1P/6P1/R7 b - - 2 52"]
+
+52... Rxa6 53. Rxa6 Kxa6 54. Kc4 *
+
+[Puzzle "06jIU"]
+[FEN "3r4/8/5P1p/3pK2k/2p3R1/7P/8/8 b - - 0 53"]
+
+53... d4 54. f7 Rf8 55. Kf6 d3 56. Rxc4 *
+
+[Puzzle "06oqh"]
+[FEN "8/2p5/pp1b3R/4p2P/P1P2pP1/1P6/3r1k2/4R2K w - - 3 40"]
+
+40. Rxd6 Rxd6 41. Rxe5 Kg3 42. Re1 f3 *
+
+[Puzzle "06rUI"]
+[FEN "8/1p3p1k/5Pp1/6rp/7P/8/PPP5/1K2R3 w - - 1 33"]
+
+33. Re7 Rg1+ 34. Re1 Rxe1# *
+
+[Puzzle "06reC"]
+[FEN "8/6p1/5k1p/8/4RK1P/3r2P1/5P2/8 w - - 0 38"]
+
+38. g4 g5+ 39. hxg5+ hxg5# *
+
+[Puzzle "06rvM"]
+[FEN "3K4/2R5/3Pk3/8/8/6r1/6P1/8 w - - 2 54"]
+
+54. d7 Rg8# *
+
+[Puzzle "06xcs"]
+[FEN "8/p4k1p/1p3P2/2p5/3p4/7P/r2KR1P1/5R2 w - - 3 37"]
+
+37. Kd3 c4+ 38. Kxc4 Rxe2 *
+
+[Puzzle "06zQg"]
+[FEN "r2r4/RR6/5kp1/p7/P3Kp2/8/6PP/8 b - - 1 36"]
+
+36... g5 37. Rb6+ Rd6 38. Rxd6# *
+
+[Puzzle "071SG"]
+[FEN "8/8/8/2p2p1R/r3k1p1/4P1KP/6P1/8 b - - 0 43"]
+
+43... gxh3 44. Rh4+ Kxe3 45. Rxa4 *
+
+[Puzzle "0738O"]
+[FEN "6k1/6p1/1RP5/2r5/8/r4P2/p7/R2K4 w - - 7 52"]
+
+52. f4 Rg3 53. Rxa2 Rg1+ 54. Ke2 Rg2+ 55. Kf3 Rxa2 *
+
+[Puzzle "073XR"]
+[FEN "8/3R4/6pk/5p1p/7P/2K2PP1/8/6r1 w - - 4 47"]
+
+47. Kd3 Rd1+ 48. Ke2 Rxd7 *
+
+[Puzzle "076gz"]
+[FEN "8/8/8/P7/4kp2/K7/1R6/r7 w - - 3 56"]
+
+56. Ra2 Rxa2+ 57. Kxa2 Kd5 58. a6 Kc6 59. a7 Kb7 60. a8=R Kxa8 61. Kb1 f3 62. Kc2 f2 *
+
+[Puzzle "07BVD"]
+[FEN "8/5K1k/8/7r/8/8/5R2/8 b - - 1 77"]
+
+77... Rg5 78. Rh2+ Rh5 79. Rxh5# *
+
+[Puzzle "07BfA"]
+[FEN "4R3/8/4r3/pp1k4/4p2P/2K5/1P6/8 w - - 2 41"]
+
+41. Rxe6 b4+ 42. Kb3 Kxe6 *
+
+[Puzzle "07CQC"]
+[FEN "6k1/2Rrrp1p/1p5P/p2p1KP1/P1R5/8/8/8 b - - 0 41"]
+
+41... dxc4 42. Rc8+ Rd8 43. Rxd8+ Re8 44. Rxe8# *
+
+[Puzzle "07H0J"]
+[FEN "6k1/1R6/p1R4p/P2p1p2/r5p1/5PPK/3r3P/8 w - - 0 36"]
+
+36. fxg4 fxg4+ 37. Kh4 Rxh2# *
+
+[Puzzle "07H3z"]
+[FEN "3r2k1/1R3ppp/pp6/1p1P4/8/1P5P/5PP1/6K1 b - - 0 26"]
+
+26... Rxd5 27. Rb8+ Rd8 28. Rxd8# *
+
+[Puzzle "07ILl"]
+[FEN "3k4/4R3/p2P4/1p2P1p1/1P2r2p/P6K/8/8 b - - 5 46"]
+
+46... Re3+ 47. Kg4 h3 48. Kf5 h2 49. Rh7 *
+
+[Puzzle "07K0h"]
+[FEN "8/8/2p4P/6R1/2k3P1/1p6/r4P2/5K2 w - - 0 39"]
+
+39. h7 b2 40. Kg2 b1=Q 41. h8=Q Qe4+ 42. Kg3 Ra3+ 43. Kh2 Qf4+ 44. Kg2 Qxg5 *
+
+[Puzzle "07Kbk"]
+[FEN "8/8/P7/1K3pk1/6rp/4R3/8/8 b - - 0 51"]
+
+51... h3 52. a7 Re4 53. Rxe4 fxe4 54. a8=Q *
+
+[Puzzle "07QgJ"]
+[FEN "4r2k/5p1p/p2Rrp2/8/8/3R4/PPP2PPP/5K2 w - - 9 24"]
+
+24. Rd8 Re1# *
+
+[Puzzle "07QyJ"]
+[FEN "3r4/1pp2kp1/p4p2/2PP3P/8/8/P1K5/3R4 b - - 4 30"]
+
+30... c6 31. dxc6 Rc8 32. Rd7+ Ke8 33. cxb7 *
+
+[Puzzle "07RqT"]
+[FEN "2r5/4kp2/7R/2K2pp1/P7/1P4PP/8/8 w - - 3 44"]
+
+44. Rc6 Rxc6+ 45. Kxc6 f4 *
+
+[Puzzle "07SN2"]
+[FEN "8/5p2/6k1/3pp3/2rP1R2/6PP/8/6K1 w - - 0 35"]
+
+35. dxe5 Rxf4 36. gxf4 Kf5 37. h4 Kxf4 *
+
+[Puzzle "07UNO"]
+[FEN "1r6/3r1pk1/3p2p1/p1pPp3/2P1P2R/2K2P2/P7/R7 b - - 3 34"]
+
+34... f6 35. Rah1 f5 36. Rh7+ Kf6 37. Rxd7 *
+
+[Puzzle "07VYI"]
+[FEN "2r3k1/pp5p/6p1/5p2/3Pp3/8/PP3PPP/4R1K1 w - - 1 26"]
+
+26. Re2 Rc1+ 27. Re1 Rxe1# *
+
+[Puzzle "07W1f"]
+[FEN "1R6/5r2/8/k1pp2P1/8/1P2Kp2/5P2/8 b - - 0 47"]
+
+47... Rf5 48. g6 Rg5 49. Rg8 Kb4 50. g7 Kc3 51. b4 Re5+ 52. Kf4 *
+
+[Puzzle "07XZG"]
+[FEN "r3k3/1p3pp1/2p1p3/p1PpP1rp/P4P2/2P4P/1P4P1/R4RK1 b q - 0 19"]
+
+19... Rf5 20. g4 hxg4 21. hxg4 Rf6 22. exf6 *
