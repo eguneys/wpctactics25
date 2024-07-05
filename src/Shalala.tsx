@@ -5,6 +5,11 @@ import { Chess, Color, Position, Role, parseSquare, parseUci, } from 'chessops'
 import { chessgroundDests } from 'chessops/compat'
 import { Dests, Key } from 'chessground/types'
 
+
+const fen_color = (fen: string) => {
+  return parseFen(fen).unwrap().turn
+}
+
 type Memo<A> = () => A
 
 export class Shala {
@@ -56,6 +61,15 @@ export class Shala {
     
     set uci_pending_promotion(uci: [Key, Key, string, string | undefined] | undefined) {
       this._uci_pending_promotion[1](uci)
+    }
+
+    get uci_pending_promotion_color_dest() {
+      let _ = this.uci_pending_promotion
+      if (_) {
+        let [_orig, dest, fen, _last_move] = _
+
+        return { color: fen_color(fen), dest }
+      }
     }
 
     _uci_pending_promotion: Signal<[Key, Key, string, string | undefined] | undefined>

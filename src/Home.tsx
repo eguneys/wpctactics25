@@ -404,7 +404,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                     orientation={turn_to_orientation()}
                     movable={i_chapter_index() !== undefined && !is_pending() && !puzzle_lala().is_revealed && puzzle_lala().is_next_hidden_cursor_path}
                     endPendingPromotion={shalala.on_promotion_end}
-                    pendingPromotion={!!shalala.uci_pending_promotion}
+                    pendingPromotion={shalala.uci_pending_promotion_color_dest}
                     doPromotion={shalala.promotion}
                     onMoveAfter={shalala.on_move_after}
                     fen_uci={shalala.fen_uci}

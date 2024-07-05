@@ -74,7 +74,7 @@ function eventPosition(e: MouchEvent): [number, number] | undefined {
   return;
 }
 
-const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?: boolean, fen_uci?: [string, string | undefined], endPendingPromotion: (_: Role | undefined) => void, pendingPromotion: boolean, doPromotion: [Key, Role] | undefined, onMoveAfter: (orig: Key, dest: Key) => void, color: Color, dests: Dests }) => {
+const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?: boolean, fen_uci?: [string, string | undefined], endPendingPromotion: (_: Role | undefined) => void, pendingPromotion: { color: Color, dest: Key } | undefined, doPromotion: [Key, Role] | undefined, onMoveAfter: (orig: Key, dest: Key) => void, color: Color, dests: Dests }) => {
 
     let board: HTMLElement
     let ground: Api
@@ -157,21 +157,32 @@ const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?:
       <div ref={(el) => board = el} class='is2d chessboard'>
 
       </div>
-      <Show when={props.pendingPromotion}>
-        <div onClick={() => props.endPendingPromotion(undefined)} id='promotion-choice' class='is2d top'>
-          {/* @ts-ignore */}
-          <square onClick={()=> props.endPendingPromotion('q') } style="top: 0%; left: 75%"><piece class='queen white'></piece></square>
-          {/* @ts-ignore */}
-          <square onClick={()=> props.endPendingPromotion('r') } style="top: 12.5%; left: 75%"><piece class='rook white'></piece></square>
-          {/* @ts-ignore */}
-          <square onClick={()=> props.endPendingPromotion('n') } style="top: 25%; left: 75%"><piece class='knight white'></piece></square>
-          {/* @ts-ignore */}
-          <square onClick={()=> props.endPendingPromotion('b') } style="top: 37.5%; left: 75%"><piece class='bishop white'></piece></square>
-        </div>
-      </Show>
+      <Show when={props.pendingPromotion}>{ (cd) => 
+        <PromotionChoice orientation={props.orientation ?? 'white'} endPendingPromotion={props.endPendingPromotion} color={cd().color} dest={cd().dest}/> }</Show>
     </>
     </>)
 }
 
+const PromotionChoice = (props: { orientation: Color, color: Color, dest: Key, endPendingPromotion: (_: Role | undefined) => void}) => {
+  let left = cg.files.indexOf(props.dest[0] as cg.File) 
+  if (props.orientation === 'black') {
+    left = 7 - left
+  }
+  left *= 12.5
+
+  return (
+    <div onClick={() => props.endPendingPromotion(undefined)} id='promotion-choice' class='is2d top'>
+      {/* @ts-ignore */}
+      <square onClick={() => props.endPendingPromotion('q')} style={`top: 0%; left: ${left}%`}><piece class={`queen ${props.color}`}></piece></square>
+      {/* @ts-ignore */}
+      <square onClick={() => props.endPendingPromotion('r')} style={`top: 12.5%; left: ${left}%`}><piece class={`rook ${props.color}`}></piece></square>
+      {/* @ts-ignore */}
+      <square onClick={() => props.endPendingPromotion('n')} style={`top: 25%; left: ${left}%`}><piece class={`knight ${props.color}`}></piece></square>
+      {/* @ts-ignore */}
+      <square onClick={() => props.endPendingPromotion('b')} style={`top: 37.5%; left: ${left}%`}><piece class={`bishop ${props.color}`}></piece></square>
+    </div>
+
+  )
+}
 
 export default Chessboard
