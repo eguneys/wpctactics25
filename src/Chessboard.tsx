@@ -1,11 +1,12 @@
 import './Chessboard.scss'
-import { createEffect, onMount } from 'solid-js'
+import { createEffect, onMount, Show } from 'solid-js'
 import { Chessground } from 'chessground'
 import * as cg from 'chessground/types'
 import { Api } from 'chessground/api'
 import { Color, Dests, Key } from 'chessground/types'
 import { INITIAL_FEN } from './chess_pgn_logic'
 import { makePersistedNamespaced } from './storage'
+import { Role } from 'chessops'
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>
 
@@ -73,7 +74,7 @@ function eventPosition(e: MouchEvent): [number, number] | undefined {
   return;
 }
 
-const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?: boolean, fen_uci?: [string, string | undefined], doPromotion: Key | undefined, onMoveAfter: (orig: Key, dest: Key) => void, color: Color, dests: Dests }) => {
+const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?: boolean, fen_uci?: [string, string | undefined], endPendingPromotion: (_: Role | undefined) => void, pendingPromotion: boolean, doPromotion: [Key, Role] | undefined, onMoveAfter: (orig: Key, dest: Key) => void, color: Color, dests: Dests }) => {
 
     let board: HTMLElement
     let ground: Api
@@ -132,8 +133,9 @@ const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?:
     })
 
     createEffect(() => {
-      let key = props.doPromotion
-      if (key) {
+      let kr = props.doPromotion
+      if (kr) {
+        let [key, role] = kr
         let piece = ground.state.pieces.get(key)!
         ground.setPieces(
           new Map([
@@ -141,7 +143,7 @@ const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?:
               key,
               {
                 color: piece.color,
-                role: 'queen',
+                role,
                 promoted: true
               }
             ]
@@ -150,11 +152,24 @@ const Chessboard = (props: { resizable?: boolean, orientation?: Color, movable?:
       }
     })
 
-
     return (<>
+    <>
       <div ref={(el) => board = el} class='is2d chessboard'>
 
       </div>
+      <Show when={props.pendingPromotion}>
+        <div onClick={() => props.endPendingPromotion(undefined)} id='promotion-choice' class='is2d top'>
+          {/* @ts-ignore */}
+          <square onClick={()=> props.endPendingPromotion('q') } style="top: 0%; left: 75%"><piece class='queen white'></piece></square>
+          {/* @ts-ignore */}
+          <square onClick={()=> props.endPendingPromotion('r') } style="top: 12.5%; left: 75%"><piece class='rook white'></piece></square>
+          {/* @ts-ignore */}
+          <square onClick={()=> props.endPendingPromotion('n') } style="top: 25%; left: 75%"><piece class='knight white'></piece></square>
+          {/* @ts-ignore */}
+          <square onClick={()=> props.endPendingPromotion('b') } style="top: 37.5%; left: 75%"><piece class='bishop white'></piece></square>
+        </div>
+      </Show>
+    </>
     </>)
 }
 
