@@ -1,3 +1,18 @@
+[FEN "r1b1kbnr/p2q3p/P7/4p3/8/6p1/RppPPPpP/1NBQKBNR w Kkq - 0 21"]
+
+21. Ra1 gxh1=Q 
+
+
+[FEN "rnbqkbnr/ppPp3p/5p2/4p1p1/8/8/P1PPPPPP/RNBQKBNR b KQkq - 0 5"]
+
+5... h6 6. cxb8=N 
+
+
+
+[FEN "rnbqk1nr/ppppp2P/5p1b/8/8/8/PPPPP1PP/RNBQKBNR b KQkq - 1 5"]
+
+5... Bg7 6. hxg8=N 
+
 
 [FEN "5r1k/5qp1/2R4p/2P5/1p1QB3/1P2P1P1/3R2KP/5r2 b - - 0 2"]
 
