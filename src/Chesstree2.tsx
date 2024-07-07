@@ -473,7 +473,10 @@ const Chesstree2 = (props: { lala: Treelala2 }) => {
               
             </>
           }>{tree =>
+            <>
+            <Show when={props.lala.is_revealed && tree().comments}>{comments => <div class='comment'>{comments()}</div>}</Show>
             <RenderLines 
+            show_comments={props.lala.is_revealed}
             on_set_path={path => props.lala.try_set_cursor_path(path)} 
             cursor_path={props.lala.cursor_path} 
             hidden_paths={props.lala.hidden_paths}
@@ -481,12 +484,14 @@ const Chesstree2 = (props: { lala: Treelala2 }) => {
             solved_paths={props.lala.solved_paths_expanded}
             failed_paths={props.lala.failed_paths_expanded}
             lines={tree().root}/>
+            </>
           }</Show>
       </div>
     </>)
 }
 
 const RenderLines = (props: {
+  show_comments: boolean,
   on_set_path: (_: string[]) => void, 
   cursor_path: string[], 
   solved_paths: string[][],
@@ -514,6 +519,7 @@ const RenderLines = (props: {
 }
 
 const RenderData = (props: { on_set_path: (_: string[]) => void, 
+  show_comments: boolean,
   solved_paths: string[][], 
   revealed_paths: string[][], 
   failed_paths: string[][], 
@@ -548,7 +554,10 @@ const RenderData = (props: { on_set_path: (_: string[]) => void,
     props.collapsed ? 'collapsed': ''
    ].join(' '))
     return <>
-      <div onClick={() => props.on_set_path(props.data.path)} class={move_on_path_klass()} ><Show when={props.show_index || props.data.ply & 1}><span class='index'>{index}</span></Show>{props.data.san}</div>
+      <div onClick={() => props.on_set_path(props.data.path)} class={move_on_path_klass()} ><Show when={props.show_index || props.data.ply & 1}><span class='index'>{index}</span></Show>
+      {props.data.san} 
+      </div>
+      <Show when={props.show_comments && props.data.comments}>{comments => <span class='comment'>{comments()}</span> }</Show>
     </>
 }
 
@@ -586,6 +595,7 @@ export const ChesstreeShorten = (props: { lala: Treelala2 }) => {
             </>
           }>{tree =>
             <RenderLinesShorten
+            show_comments={props.lala.is_revealed}
             on_set_path={path => props.lala.try_set_cursor_path(path)} 
             cursor_path={props.lala.cursor_path} 
             hidden_paths={props.lala.hidden_paths}
@@ -600,6 +610,7 @@ export const ChesstreeShorten = (props: { lala: Treelala2 }) => {
 
 
 const RenderLinesShorten = (props: {
+  show_comments: boolean,
   on_set_path: (_: string[]) => void, 
   cursor_path: string[], 
   solved_paths: string[][],
@@ -637,6 +648,7 @@ const RenderLinesShorten = (props: {
 }
 
 const RenderLinesShortenCollapsed = (props: {
+  show_comments: boolean,
   on_set_path: (_: string[]) => void, 
   cursor_path: string[], 
   solved_paths: string[][],

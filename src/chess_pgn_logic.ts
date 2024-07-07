@@ -32,6 +32,10 @@ export class Pgn {
 
             let t = MoveTree.make(before_fen, [uci])
 
+            if (g.comments) {
+                t.set_root_comments(g.comments.join('\n'))
+            }
+
             append_children(t, child, i_pos, [])
 
             function append_children(t: MoveTree, child: ChildNode<PgnNodeData>, before_pos: Position, path: string[]) {
@@ -41,6 +45,9 @@ export class Pgn {
                 after_pos.play(move)
                 let uci = makeUci(move)
                 t.append_uci(uci, path)
+                if (child.data.comments) {
+                  t.set_comments([...path, uci], child.data.comments.join('\n'))
+                }
                 child.children.forEach(child => {
                     append_children(t, child, after_pos, [...path, uci])
                 })
@@ -196,7 +203,7 @@ export class MoveTree {
     }
 
     get clone() {
-        return new MoveTree(this.before_fen, this.root.map(_ => _.clone))
+        return new MoveTree(this.before_fen, this.root.map(_ => _.clone), this.comments)
     }
 
     get mainline_only() {
@@ -215,7 +222,7 @@ export class MoveTree {
         this._root[1](_)
     }
 
-    constructor(readonly before_fen: string, root: TreeNode<MoveData>[]) {
+    constructor(readonly before_fen: string, root: TreeNode<MoveData>[], public comments?: string) {
         this._root = createSignal(root, { equals: false })
     }
 
@@ -307,6 +314,18 @@ export class MoveTree {
             i!.children = [...i_children, child]
             i = child
             path = [...path, uci]
+        }
+    }
+
+    set_root_comments(comments: string) {
+        this.comments = comments
+    }
+
+    set_comments(ucis: string[], comment: string) {
+        let [_path, i, _rest] = this._find_path(ucis)!
+
+        if (i) {
+          i.data.comments = comment
         }
     }
 }
