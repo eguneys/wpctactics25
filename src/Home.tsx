@@ -508,6 +508,13 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                     <span class='run'>Run: #{current_run().no}</span>
                     <span class='time'>Total Time: {format_ms_time(current_run().elapsed_ms)}</span>
                 </div>
+                <div class='side-info'>
+                    <span class='event'>Event: {selected_chapter().pgn.event}</span>
+                    <div class='players'>
+                      <div class='color-icon white'>{selected_chapter().pgn.white}</div>
+                      <div class='color-icon black'>{selected_chapter().pgn.black}</div>
+                    </div>
+                </div>
                 <div class='side-tools'>
                     <div class='jump-toggle'>
                       <input onChange={_ => set_is_jump_to_next_puzzle_immediately(_.currentTarget.checked)} type='checkbox' id='jump-next' checked={is_jump_to_next_puzzle_immediately()}></input>

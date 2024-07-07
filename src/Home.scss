@@ -79,19 +79,24 @@
         gap: 1em;
 
 
-        grid-template-areas: 'header tools'
-            'list list';
+        grid-template-areas: 'header info tools'
+            'list list list';
 
         grid-template-rows: repeat(3, fit-content(0));
 
         @media (max-width: 420px) or (min-width: 790px) {
             grid-template-areas: 'header'
+            'info'
             'tools'
             'list';
         }
 
         .side-header {
             grid-area: header;
+        }
+
+        .side-info {
+            grid-area: info;
         }
 
         .side-tools {
@@ -106,7 +111,8 @@
 
     .side {
 
-        .side-header {
+        .side-header,
+        .side-info {
             display: flex;
             flex-flow: column;
             gap: 0.5em;
@@ -124,6 +130,7 @@
 
 .side .side-header,
 .side .side-tools,
+.side .side-info,
 .under .side-list {
     border-radius: 2px;
     background: linear-gradient($secondary, $secondary-dim);
@@ -393,4 +400,28 @@
         opacity: .5;
         cursor: default;
     }
+}
+
+.side-info {
+  .players {
+  
+    font-size: 90%;
+    margin-top: .3em;
+  }
+}
+
+.color-icon {
+    &::before {
+      margin: .4em;
+      font-size: 1.2em;
+      font-family: 'lichess';
+      vertical-align: middle;
+    }
+}
+
+.color-icon.white::before {
+    content: ''
+}
+.color-icon.black::before {
+    content: ''
 }
