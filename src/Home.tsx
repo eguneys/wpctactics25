@@ -231,6 +231,10 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     }))
 
     createEffect(() => {
+        console.log(reveal_result())
+    })
+
+    createEffect(() => {
         if (reveal_result() === 'solved' && is_jump_to_next_puzzle_immediately()) {
             set_is_pending(true)
             setTimeout(() => {

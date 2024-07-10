@@ -93,6 +93,7 @@ const def_user_run_list: UserRun[] = []
 const def_user_active_config_list: UserActiveConfig[] = []
 
 class _UserSetRunStore {
+   
     _user_active_config_list: Signal<UserActiveConfig[]> = makePersisted(createSignal(def_user_active_config_list, { equals: false }), {
         name: '.wpc.profile.user_active_config_list'
     })
@@ -119,6 +120,29 @@ class _UserSetRunStore {
 
     get_runs_for_user(username: string, set_id: string) {
         return this.user_run_list.filter(_ => _.username === username && _.set_id === set_id)
+    }
+
+    async get_failed_puzzles_for_selected_study_in_pgn_for_user(username: string, set_id: string) {
+        let run = this.get_runs_for_user(username, set_id).pop()
+
+        if (!run) {
+            return undefined
+        }
+
+        let ss = await StudyRepo.get_study_by_id(run.set_id)
+        let chapters = run.failed.map(i => ss.chapters[i].pgn.plain)
+
+        return chapters.join('\n\n')
+    }
+    
+
+    async get_failed_puzzles_for_active_run_in_pgn_for_user(username: string) {
+        let run = await this.get_active_run_for_user(username)
+        let ss = await StudyRepo.get_study_by_id(run.set_id)
+        console.log(run.failed)
+        let chapters = run.failed.map(i => ss.chapters[i].pgn.plain)
+
+        return chapters.join('\n\n')
     }
 
     async get_active_run_for_user(username: string) {

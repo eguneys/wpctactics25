@@ -54,6 +54,7 @@ export class Pgn {
             }
 
             let res = new Pgn({
+                fen,
                 event, site, white, black,
                 puzzle
              }, t)
@@ -82,13 +83,51 @@ export class Pgn {
         return this.headers.puzzle
     }
 
+    get fen() {
+        return this.headers.fen
+    }
+
     constructor(
         readonly headers: PgnHeaders,
 
         readonly tree: MoveTree) { }
+
+
+    get plain() {
+        let res = []
+
+        if (this.fen && this.fen !== '?') {
+            res.push(`[FEN "${this.fen}"]`)
+        }
+        if (this.event && this.event !== '?') {
+            res.push(`[Event "${this.event}"]`)
+        }
+        if (this.site && this.site !== '?') {
+            res.push(`[Site "${this.site}"]`)
+        }
+        if (this.white && this.white !== '?') {
+            res.push(`[White "${this.white}"]`)
+        }
+        if (this.black && this.black !== '?') {
+            res.push(`[Black "${this.black}"]`)
+        }
+
+        if (this.puzzle && this.puzzle !== '?') {
+            res.push(`[Puzzle "${this.puzzle}"]`)
+        }
+
+
+
+
+
+
+
+        return res.join('\n') + '\n\n' + this.tree.text
+    }
 }
 
 export type PgnHeaders = {
+    fen?: string,
    event?: string, 
    site?: string,
    white?: string,
@@ -198,6 +237,35 @@ export class MoveTree {
         return res
     }
 
+    
+    get text() {
+
+        function render_data(data: MoveData, show_index = false) {
+            let ply = data.ply
+            let i = (ply % 2 === 1 || show_index) ? (Math.ceil(ply/ 2) + (ply % 2 === 1 ? '.' : '...')) : ''
+            let tail = ply %2 === 1 ? '' : ' '
+            return `${i} ${data.san}${data.comments ? ' { ' + data.comments + ' }' : ''}${tail}`
+        }
+
+        function render_lines(ts: TreeNode<MoveData>[], show_index = false, ) {
+
+            let res = ''
+            if (ts.length === 0) {
+            } else if (ts.length === 1) {
+                res += render_data(ts[0].data, show_index)
+                res += render_lines(ts[0].children, false)
+            } else {
+                res += render_data(ts[0].data, false).trimEnd()
+                res += ' ' + ts.slice(1).map(_ => `(${render_lines([_], true).trimEnd()})`).join(' ')
+                res += ' ' + render_lines(ts[0].children, true)
+            }
+            return res
+        }
+
+        return (this.comments ? `{ ${this.comments} } ` : '') + render_lines(this.root, true)
+    }
+
+
     get initial_color() {
         return TreeNode.before_color_of(this.root[0])
     }
@@ -296,9 +364,10 @@ export class MoveTree {
     append_ucis(ucis: string[]) {
         let [path, i, rest] = this._find_path(ucis)!
         if (!i) {
+            let ply_2_if_black = parseFen(this.before_fen).unwrap().turn === 'black' ? 2 : 1
             let uci = rest[0]
             let child = TreeNode.make(
-                MoveTree.make_data(this.before_fen, uci, 1, path)
+                MoveTree.make_data(this.before_fen, uci, ply_2_if_black, path)
             )
             this.root.push(child)
             this.root = this.root

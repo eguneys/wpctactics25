@@ -87,6 +87,12 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
         UserSetRunStore.clear_runs(username(), selected_study_id())
     }
 
+    const show_export_failed_puzzles = createSignal(false)
+
+    createEffect(on(selected_study_id, () => {
+        show_export_failed_puzzles[1](false)
+    }))
+
     SessionStore.navigate_filter = undefined
     const set_filter_and_navigate = (filter: SetFilter) => {
 
@@ -171,6 +177,11 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
                 </div>
             
             <div class='buttons'>
+                <Show fallback={
+                  <span onClick={() => show_export_failed_puzzles[1](true)} class='link'>Export Failed Puzzles</span>
+                } when={show_export_failed_puzzles[0]()}>
+                    <ExportFailedLink selected_study={selected_study()}/>
+                </Show>
                 <span onClick={() => clear_runs()} class='link red'>Clear Statistics</span>
             </div>
                         </>
@@ -182,5 +193,25 @@ const DashboardLoaded = (props: { config: UserActiveConfig, studies: StudyInConf
     </>)
 }
 
+const ExportFailedLink = (props: { selected_study: StudyInConfig }) => {
+
+    const username = () => ProfileStore.active_user ?? ProfileStore.anonymous_user
+    let [failed_pgns] = createResource(() => UserSetRunStore.get_failed_puzzles_for_selected_study_in_pgn_for_user(username(), props.selected_study.id))
+
+    let href = createMemo(on(failed_pgns, pgns => { 
+        if (pgns === undefined) {
+            return undefined
+        }  
+        return URL.createObjectURL(new Blob([pgns], { type: 'text/plain'}))
+    }))
+    let download = createMemo(() => `${props.selected_study.name}-failed.pgn`)
+
+
+    return (<>
+    <Show fallback="Composing pgns.." when={href()}>{ href => 
+      <a href={href()} download={download()}>Click to download failed puzzles</a>
+    }</Show>
+    </>)
+}
 
 export default Dashboard

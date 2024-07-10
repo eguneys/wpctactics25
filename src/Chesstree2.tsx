@@ -483,7 +483,8 @@ const Chesstree2 = (props: { lala: Treelala2 }) => {
             revealed_paths={props.lala.revealed_paths}
             solved_paths={props.lala.solved_paths_expanded}
             failed_paths={props.lala.failed_paths_expanded}
-            lines={tree().root}/>
+            lines={tree().root}
+            show_index={true}/>
             </>
           }</Show>
       </div>
@@ -498,13 +499,13 @@ const RenderLines = (props: {
   revealed_paths: string[][],
   failed_paths: string[][],
   hidden_paths: string[][],
-  lines: TreeNode<MoveData>[], show_index?: true}) => {
+  lines: TreeNode<MoveData>[], show_index: boolean}) => {
 
     return (<>
       <Switch>
         <Match when={props.lines.length === 1}>
           <RenderData data={props.lines[0].data} {...props}/>
-          <RenderLines  {...props} lines={props.lines[0].children} />
+          <RenderLines  {...props} lines={props.lines[0].children} show_index={false}/>
         </Match>
         <Match when={props.lines.length > 1}>
           <RenderLines {...props} lines={props.lines.slice(0, 1)}/>
@@ -526,10 +527,13 @@ const RenderData = (props: { on_set_path: (_: string[]) => void,
   hidden_paths: string[][], 
   cursor_path: string[], data: MoveData, show_index?: boolean, collapsed?: true }) => {
 
-    let index = `${Math.ceil(props.data.ply / 2)}.`
-    if (props.data.ply % 2 === 0) {
+    let index = createMemo(() =>{
+      let index = `${Math.ceil(props.data.ply / 2)}.`
+      if (props.data.ply % 2 === 0) {
         index += '..'
-    }
+      }
+      return index
+    })
 
     let on_path = createMemo(() => props.cursor_path.join('').startsWith(props.data.path.join('')))
     let on_path_end = createMemo(() => props.cursor_path.join('') === props.data.path.join(''))
@@ -554,7 +558,7 @@ const RenderData = (props: { on_set_path: (_: string[]) => void,
     props.collapsed ? 'collapsed': ''
    ].join(' '))
     return <>
-      <div onClick={() => props.on_set_path(props.data.path)} class={move_on_path_klass()} ><Show when={props.show_index || props.data.ply & 1}><span class='index'>{index}</span></Show>
+      <div onClick={() => props.on_set_path(props.data.path)} class={move_on_path_klass()} ><Show when={props.show_index || props.data.ply & 1}><span class='index'>{index()}</span></Show>
       {props.data.san} 
       </div>
       <Show when={props.show_comments && props.data.comments}>{comments => <span class='comment'>{comments()}</span> }</Show>
