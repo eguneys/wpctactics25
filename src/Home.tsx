@@ -155,6 +155,13 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
                 }
                 set_is_pending(false)
             }, 600)
+        } else {
+            let run = current_run()
+            let i = i_chapter_index()!
+            if (!run.failed.includes(i)) {
+              run.failed.push(i)
+              UserSetRunStore._save_run(run)
+            }
         }
     }))
 
@@ -255,7 +262,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         let i = i_chapter_index()!
         let run = current_run()
         if (r === 'failed') {
-            run.failed.push(i)
+            //run.failed.push(i)
         } else if (r === 'revealed') {
             run.skipped.push(i)
         } else if (r === 'solved') {
