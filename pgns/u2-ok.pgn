@@ -1,3 +1,11 @@
+[FEN "8/1p6/8/p1N1P3/P5k1/1P2Pnp1/6Kp/8 b - - 0 1"]
+[Event "#4213 Chess: 5334 Problems, Combinations, and Games by László Polgár"]
+[Site "Copyright 1994 Könemann"]
+[White "Mate in three"]
+[Black "Black to move"]
+
+1... h1=Q+ 2. Kxh1 Kh3 3. Nxb7 g2# 
+
 [FEN "r1b1kbnr/p2q3p/P7/4p3/8/6p1/RppPPPpP/1NBQKBNR w Kkq - 0 21"]
 
 { Header comment } 21. Ra1 { Hello this is a comment } gxh1=Q  {This is another comment }
