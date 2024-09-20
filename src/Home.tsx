@@ -86,6 +86,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
         }
     })
 
+
     const in_run = createMemo(() => filter() === undefined)
 
     const Player = usePlayer()
@@ -97,6 +98,15 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
     let f_p = filtered_puzzles()
     const [i_chapter_index, set_i_chapter_index] = createSignal<number | undefined>(f_p ? f_p[0] : unattempted_puzzles()[0])
     const selected_chapter = createMemo(() => props.pgn.chapters[i_chapter_index() ?? 0])
+
+    const seen_puzzles = createMemo(() => {
+        let i = i_chapter_index()
+        let seen = [...solved_puzzles(), ...skipped_puzzles(), ...failed_puzzles()].sort((a, b) => a - b)
+        if (i !== undefined && !seen.includes(i)) {
+            seen.push(i)
+        }
+        return seen
+    })
 
     const lichess_link = () => selected_chapter().site ?? analyze_lichess_fen_link(selected_chapter().pgn.tree.before_fen)
 
@@ -545,7 +555,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
             </div>
             <div class='under'>
                 <div class='side-list'>
-                    <For each={all_puzzles()}>{i => 
+                    <For each={seen_puzzles()}>{i => 
                       <span class={puzzle_span_klass_for(i)} onClick={() => { set_filter_for_index(i); set_i_chapter_index(i) }}>{i+1}</span> 
                     }</For>
                 </div>
