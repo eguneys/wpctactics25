@@ -101,7 +101,7 @@ const HomeLoaded = (props: { pgn: PGNStudy, run: UserRun }) => {
 
     const seen_puzzles = createMemo(() => {
         let i = i_chapter_index()
-        let seen = [...solved_puzzles(), ...skipped_puzzles(), ...failed_puzzles()].sort((a, b) => a - b)
+        let seen = [...solved_puzzles(), ...skipped_puzzles(), ...failed_puzzles(), ...unattempted_puzzles().slice(0, 5)].sort((a, b) => a - b)
         if (i !== undefined && !seen.includes(i)) {
             seen.push(i)
         }
